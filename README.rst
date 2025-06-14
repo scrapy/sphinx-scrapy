@@ -21,7 +21,7 @@ Sphinx_ extension for documentation in the Scrapy_ ecosystem.
 Features
 ========
 
--   Automatic configuration of intersphinx_ for Python_, Scrapy_.
+-   Automatic configuration of intersphinx_ for Python_ and Scrapy_.
 
     Ready-to-use, easy-to-enable configuration for the following packages of
     the Scrapy_ ecosystem is also available:
