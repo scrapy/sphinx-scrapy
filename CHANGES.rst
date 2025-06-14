@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.1.0 (unreleased)
+0.1.0 (2025-06-14)
 ==================
 
 Initial release.
