@@ -103,6 +103,7 @@ Setup
     .. code-block:: python
 
         extensions = [
+            "sphinx.ext.intersphinx",
             "sphinx_scrapy",
         ]
 
