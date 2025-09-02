@@ -35,6 +35,8 @@ Features
     | `form2request <https://form2request.readthedocs.io/en/latest/>`_
     | `formasaurus <https://formasaurus.readthedocs.io/en/latest/>`_
     | `itemloaders <https://itemloaders.readthedocs.io/en/latest/>`_
+    | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
+    | `lxml <https://lxml.de/apidoc/>`_
     | `parsel <https://parsel.readthedocs.io/en/latest/>`_
     | `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
     | `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_

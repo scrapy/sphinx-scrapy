@@ -10,6 +10,8 @@ INTERSPHINX_MAPPING = {
     "form2request": ("https://form2request.readthedocs.io/en/latest/", None),
     "formasaurus": ("https://formasaurus.readthedocs.io/en/latest/", None),
     "itemloaders": ("https://itemloaders.readthedocs.io/en/latest/", None),
+    "jinja": ("https://jinja.palletsprojects.com/en/latest/", None),
+    "lxml": ("https://lxml.de/apidoc/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
     "python": ("https://docs.python.org/3", None),
     "python-scrapinghub": (
@@ -47,7 +49,7 @@ INTERSPHINX_MAPPING = {
     ),
 }
 
-# By default, interphinx entries are configured if a same-bame module is
+# By default, interphinx entries are configured if a same-name module is
 # installed. Here you can set True to always configure the entry unless
 # explicitly disabled, False to never configure the entry unless explicitly
 # requested, or a string to use as the package name to check for.

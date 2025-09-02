@@ -2,6 +2,14 @@
 Release notes
 =============
 
+0.3.0 (unreleased)
+==================
+
+| Extended easy intersphinx configuration to:
+| `jinja <https://jinja.palletsprojects.com/en/latest/>`_
+| `lxml <https://lxml.de/apidoc/>`_
+
+
 0.2.0 (2025-06-16)
 ==================
 
