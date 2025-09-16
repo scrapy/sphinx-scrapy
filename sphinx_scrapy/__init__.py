@@ -14,6 +14,7 @@ INTERSPHINX_MAPPING = {
     "lxml": ("https://lxml.de/apidoc/", None),
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
+    "pydantic": ("https://docs.pydantic.dev/latest/", None),
     "pytest": ("https://docs.pytest.org/en/stable/", None),
     "python": ("https://docs.python.org/3", None),
     "python-scrapinghub": (

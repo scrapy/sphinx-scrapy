@@ -2,6 +2,13 @@
 Release notes
 =============
 
+0.6.0 (unreleased)
+==================
+
+| Extended easy intersphinx configuration to:
+| `pydantic <https://docs.pydantic.dev/latest/>`_
+
+
 0.5.0 (2025-09-16)
 ==================
 

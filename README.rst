@@ -39,6 +39,7 @@ Features
     | `lxml <https://lxml.de/apidoc/>`_
     | `packaging <https://packaging.pypa.io/en/stable/>`_
     | `parsel <https://parsel.readthedocs.io/en/latest/>`_
+    | `pydantic <https://docs.pydantic.dev/latest/>`_
     | `pytest <https://docs.pytest.org/en/stable/>`_
     | `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
     | `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_
