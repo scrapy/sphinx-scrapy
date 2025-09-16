@@ -37,7 +37,9 @@ Features
     | `itemloaders <https://itemloaders.readthedocs.io/en/latest/>`_
     | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
     | `lxml <https://lxml.de/apidoc/>`_
+    | `packaging <https://packaging.pypa.io/en/stable/>`_
     | `parsel <https://parsel.readthedocs.io/en/latest/>`_
+    | `pytest <https://docs.pytest.org/en/stable/>`_
     | `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
     | `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_
     | `scrapy-poet <https://scrapy-poet.readthedocs.io/en/stable/>`_

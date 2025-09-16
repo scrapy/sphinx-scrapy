@@ -12,7 +12,9 @@ INTERSPHINX_MAPPING = {
     "itemloaders": ("https://itemloaders.readthedocs.io/en/latest/", None),
     "jinja": ("https://jinja.palletsprojects.com/en/latest/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
+    "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
+    "pytest": ("https://docs.pytest.org/en/stable/", None),
     "python": ("https://docs.python.org/3", None),
     "python-scrapinghub": (
         "https://python-scrapinghub.readthedocs.io/en/latest/",

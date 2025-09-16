@@ -2,6 +2,13 @@
 Release notes
 =============
 
+0.4.0 (unreleased)
+==================
+
+| Extended easy intersphinx configuration to:
+| `packaging <https://packaging.pypa.io/en/stable/>`_
+| `pytest <https://docs.pytest.org/en/stable/>`_
+
 0.3.0 (2025-09-02)
 ==================
 
