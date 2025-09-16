@@ -1,7 +1,12 @@
-from collections.abc import Generator
+from __future__ import annotations
 
-from sphinx.application import Sphinx
-from sphinx.config import Config
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    from sphinx.application import Sphinx
+    from sphinx.config import Config
 
 INTERSPHINX_MAPPING = {
     "attrs": ("https://www.attrs.org/en/stable/", None),
