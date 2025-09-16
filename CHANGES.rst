@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.5.0 (unreleased)
+0.5.0 (2025-09-16)
 ==================
 
 Change the minimum version of Python from 3.9 to 3.8.
