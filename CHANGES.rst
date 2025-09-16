@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.6.1 (unreleased)
+0.6.1 (2025-09-16)
 ==================
 
 Fixed Pythonb 3.8 support.
