@@ -16,6 +16,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -28,7 +29,7 @@ classifiers = [
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 authors = [{ name = "Scrapy developers", email = "opensource@zyte.com" }]
 maintainers = [{ name = "Scrapy developers", email = "opensource@zyte.com" }]
 

@@ -2,12 +2,19 @@
 Release notes
 =============
 
+0.5.0 (unreleased)
+==================
+
+Change the minimum version of Python from 3.9 to 3.8.
+
+
 0.4.0 (2025-09-16)
 ==================
 
 | Extended easy intersphinx configuration to:
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `pytest <https://docs.pytest.org/en/stable/>`_
+
 
 0.3.0 (2025-09-02)
 ==================
