@@ -19,7 +19,10 @@ def _builder_settings(builder: str) -> list[str]:
     if builder == "markdown":
         return ["-D", "llms_txt_uri_template={base_url}{docname}.md"]
     if builder == "singlemarkdown":
-        return ["-D", "singlemarkdown_flavor=llm"]
+        return [
+            "-D", "llms_txt_uri_template={base_url}{docname}.md",
+            "-D", "singlemarkdown_flavor=llm",
+        ]
     return []
 
 
@@ -44,9 +47,7 @@ def build_docs() -> int:
         print("docs directory not found", file=sys.stderr)
         return 1
 
-    build_root = docs_dir / "_build"
-    build_root.mkdir(parents=True, exist_ok=True)
-    sphinx_build_dir = build_root / "build"
+    sphinx_build_dir = docs_dir / "_build"
     sphinx_build_dir.mkdir(parents=True, exist_ok=True)
 
     builders = ["html", "markdown", "singlemarkdown"]
@@ -64,13 +65,14 @@ def build_docs() -> int:
         for future in concurrent.futures.as_completed(futures):
             future.result()
 
-    all_dir = build_root / "all"
+    all_dir = sphinx_build_dir / "all"
     all_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copytree(sphinx_build_dir / "html", all_dir, dirs_exist_ok=True)
     shutil.copytree(sphinx_build_dir / "markdown", all_dir, dirs_exist_ok=True)
     shutil.copy2(sphinx_build_dir / "singlemarkdown" / "index.md", all_dir / "llms-full.txt")
 
+    print("\nDocumentation generated in docs/_build/all.")
     return 0
 
 
