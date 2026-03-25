@@ -51,7 +51,7 @@ def build_docs() -> int:
 
     builders = ["html", "markdown", "singlemarkdown"]
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=len(builders)) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=len(builders)) as executor:
         futures = [
             executor.submit(
                 _run_builder,
