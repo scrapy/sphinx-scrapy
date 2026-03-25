@@ -172,7 +172,7 @@ Intersphinx packages
 Release notes
 =============
 
-See `Release notes
+See the `release notes
 <https://github.com/scrapy/sphinx-scrapy/blob/main/CHANGES.rst>`_ for a list of
 releases and their changes.
 
