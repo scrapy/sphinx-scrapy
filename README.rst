@@ -58,7 +58,7 @@ Setup
 
     .. code-block::
 
-        sphinx-scrapy
+        sphinx-scrapy==0.6.1
 
 #.  Add to ``docs/conf.py``:
 
