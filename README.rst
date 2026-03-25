@@ -119,6 +119,9 @@ Setup
         [tox]
         requires =
             sphinx-scrapy==0.6.1
+        envlist = …,docs
+
+    .. note:: ``docs`` in ``envlist`` is required.
 
 You can now build the docs with:
 
