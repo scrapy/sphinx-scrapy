@@ -21,7 +21,7 @@ Features
 -   Provides a ``docs`` `tox <https://tox.readthedocs.io/en/latest/>`_
     environment.
 
--   Generates `Read the Docs <https://readthedocs.org/>`_ configuration.
+-   Generates a `Read the Docs <https://readthedocs.org/>`_ configuration.
 
 -   Enables `commonly-used Sphinx extensions <#sphinx-extensions>`_.
 
