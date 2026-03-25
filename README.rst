@@ -88,6 +88,12 @@ Setup
             "scrapy",
         ]
 
+#.  Add to ``docs/.gitignore``:
+
+    .. code-block::
+
+        /_build/
+
 #.  Add to ``.pre-commit-config.yaml``:
 
     .. code-block:: yaml
