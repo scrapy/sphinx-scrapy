@@ -23,7 +23,7 @@ Features
 
 -   Generates `Read the Docs <https://readthedocs.org/>`_ configuration.
 
--   Enables o:ref:`commonly-used Sphinx extensions <sphinx-extensions>`.
+-   Enables :ref:`commonly-used Sphinx extensions <sphinx-extensions>`.
 
 -   Configures `sphinx.ext.intersphinx`_ for `Python
     <https://docs.python.org/>`_ and Scrapy_, and streamlines configuration for
