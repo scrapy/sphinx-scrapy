@@ -52,7 +52,7 @@ Setup
         python-version = "3.14"
     
     It must be `supported by Read the Docs
-    <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`__.
+    <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`_.
 
 #.  Add to ``docs/requirements.txt``:
 
@@ -120,12 +120,15 @@ Sphinx extensions
 The following Sphinx extensions are automatically enabled when you enable
 ``sphinx_scrapy``:
 
-- `sphinx.ext.autodoc
+-   `sphinx.ext.autodoc
     <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`_
-- `sphinx.ext.intersphinx`_
-- `sphinx.ext.viewcode
+
+-   `sphinx.ext.intersphinx`_
+
+-   `sphinx.ext.viewcode
     <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
-- `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`__
+
+-   `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`_
 
 .. _intersphinx-packages:
 
