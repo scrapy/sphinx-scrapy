@@ -122,8 +122,7 @@ The following Sphinx extensions are automatically enabled when you enable
 
 - `sphinx.ext.autodoc
     <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`_
-- `sphinx.ext.intersphinx
-    <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
+- `sphinx.ext.intersphinx`_
 - `sphinx.ext.viewcode
     <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
 - `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`__
@@ -173,3 +172,5 @@ Release notes
 See `Release notes
 <https://github.com/scrapy/sphinx-scrapy/blob/main/CHANGES.rst>`_ for a list of
 releases and their changes.
+
+.. _sphinx.ext.intersphinx: https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
