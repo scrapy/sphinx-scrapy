@@ -5,6 +5,9 @@ Release notes
 0.7.0 (unreleased)
 ==================
 
+-   Dropped support for Python 3.8 and 3.9, added official support for Python
+    3.14.
+
 -   Added a tox plugin that provides a ``docs`` environment.
 
 -   Added a pre-commit hook to create or update ``.readthedocs.yaml``.

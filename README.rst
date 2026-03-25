@@ -58,7 +58,7 @@ Setup
     .. code-block:: toml
 
         [tool.sphinx-scrapy]
-        python-version = "3.13"
+        python-version = "3.14"
     
     It must be `supported by Read the Docs
     <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`__.
