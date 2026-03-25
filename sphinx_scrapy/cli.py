@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 def _builder_settings(builder: str) -> list[str]:
-    if builder == "markdown":
+    if builder == "html":
         return ["-D", "llms_txt_uri_template={base_url}{docname}.md"]
     if builder == "singlemarkdown":
         return [
