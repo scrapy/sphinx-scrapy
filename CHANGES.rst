@@ -13,7 +13,7 @@ Release notes
 -   Added a pre-commit hook to create or update ``.readthedocs.yaml``.
 
 -   Enabling the ``sphinx_scrapy`` extension now automatically enables
-	``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.
+    ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.
 
 0.6.1 (2025-09-16)
 ==================
