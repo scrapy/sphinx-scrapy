@@ -15,6 +15,9 @@ Release notes
 -   Enabling the ``sphinx_scrapy`` extension now automatically enables
     ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.
 
+-   Extended easy intersphinx configuration to `multidict
+    <https://multidict.aio-libs.org/en/latest/>`_.
+
 0.6.1 (2025-09-16)
 ==================
 

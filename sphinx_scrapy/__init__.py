@@ -17,6 +17,7 @@ INTERSPHINX_MAPPING = {
     "itemloaders": ("https://itemloaders.readthedocs.io/en/latest/", None),
     "jinja": ("https://jinja.palletsprojects.com/en/latest/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
+    "multidict": ("https://multidict.aio-libs.org/en/latest/", None),
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
     "pydantic": ("https://docs.pydantic.dev/latest/", None),

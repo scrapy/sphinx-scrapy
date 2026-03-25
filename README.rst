@@ -145,6 +145,7 @@ Intersphinx packages
 | `itemloaders <https://itemloaders.readthedocs.io/en/latest/>`_
 | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
 | `lxml <https://lxml.de/apidoc/>`_
+| `multidict <https://multidict.aio-libs.org/en/latest/>`_
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `parsel <https://parsel.readthedocs.io/en/latest/>`_
 | `pydantic <https://docs.pydantic.dev/latest/>`_
