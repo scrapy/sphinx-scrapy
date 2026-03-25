@@ -18,28 +18,19 @@ sphinx-scrapy
 Features
 ========
 
--   Automatic ``docs`` `tox <https://tox.readthedocs.io/en/latest/>`_
-    environment definition.
+-   Provides a ``docs`` `tox <https://tox.readthedocs.io/en/latest/>`_
+    environment.
 
--   Automatic `Read the Docs <https://readthedocs.org/>`_ configuration.
+-   Generates `Read the Docs <https://readthedocs.org/>`_ configuration.
 
--   Automatic enablement of the following Sphinx extensions:
+-   Enables o:ref:`commonly-used Sphinx extensions <sphinx-extensions>`.
 
-    - `sphinx.ext.autodoc
-      <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`_
-    - `sphinx.ext.intersphinx
-      <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
-    - `sphinx.ext.viewcode
-      <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
-    - `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`__
-
--   Automatic configuration of ``sphinx.ext.intersphinx`` for `Python
-    <https://docs.python.org/>`_ and Scrapy_, and easy configuration for
+-   Configures `sphinx.ext.intersphinx`_ for `Python
+    <https://docs.python.org/>`_ and Scrapy_, and streamlines configuration for
     :ref:`additional packages <intersphinx-packages>`.
 
--   Automatic configuration of Sphinx roles of the Scrapy documentation, so
-    that you can easily link to Scrapy settings, request metadata keys, signals
-    and commands:
+-   Allows you to easily link to Scrapy settings, request metadata keys,
+    signals and commands:
 
     .. code-block:: rst
 
@@ -77,15 +68,15 @@ Setup
             "sphinx_scrapy",
         ]
 
-    To automatically configure ``sphinx.ext.intersphinx`` for installed
+    To automatically configure `sphinx.ext.intersphinx`_ for installed
     :ref:`supported package <intersphinx-packages>`:
 
     .. code-block:: python
 
         scrapy_intersphinx_enable_installed = True
 
-    You can also enable or disable the automatic intersphinx configuration of
-    packages manually:
+    You can also enable or disable the automatic `sphinx.ext.intersphinx`_
+    configuration of packages manually:
 
     .. code-block:: python
 
@@ -120,6 +111,22 @@ You can now build the docs with:
 .. code-block:: bash
 
     tox -e docs
+
+.. _sphinx-extensions:
+
+Sphinx extensions
+=================
+
+The following Sphinx extensions are automatically enabled when you enable
+``sphinx_scrapy``:
+
+- `sphinx.ext.autodoc
+    <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`_
+- `sphinx.ext.intersphinx
+    <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
+- `sphinx.ext.viewcode
+    <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
+- `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`__
 
 .. _intersphinx-packages:
 
