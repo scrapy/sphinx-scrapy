@@ -10,7 +10,7 @@ Release notes
 
 -   Added a tox plugin that provides a ``docs`` environment.
 
--   Added a pre-commit hook to create or update ``.readthedocs.yaml``.
+-   Added a pre-commit hook to create or update ``.readthedocs.yml``.
 
 -   Enabling the ``sphinx_scrapy`` extension now automatically enables
     ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.

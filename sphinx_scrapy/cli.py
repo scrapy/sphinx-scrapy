@@ -97,7 +97,7 @@ def update_rtd_config() -> int:
         )
         return 1
 
-    output = config.root / ".readthedocs.yaml"
+    output = config.root / ".readthedocs.yml"
     output.write_text(
         "\n".join(
             [
