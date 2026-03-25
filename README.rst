@@ -23,11 +23,11 @@ Features
 
 -   Generates `Read the Docs <https://readthedocs.org/>`_ configuration.
 
--   Enables :ref:`commonly-used Sphinx extensions <sphinx-extensions>`.
+-   Enables `commonly-used Sphinx extensions <#sphinx-extensions>`_.
 
 -   Configures `sphinx.ext.intersphinx`_ for `Python
     <https://docs.python.org/>`_ and Scrapy_, and streamlines configuration for
-    :ref:`additional packages <intersphinx-packages>`.
+    `additional packages <#intersphinx-packages>`_.
 
 -   Allows you to easily link to Scrapy settings, request metadata keys,
     signals and commands:
@@ -69,7 +69,7 @@ Setup
         ]
 
     To automatically configure `sphinx.ext.intersphinx`_ for installed
-    :ref:`supported package <intersphinx-packages>`:
+    `supported packages <#intersphinx-packages>`_, set:
 
     .. code-block:: python
 
