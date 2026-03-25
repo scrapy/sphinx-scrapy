@@ -15,6 +15,7 @@ LATEST_RTD_PYTHON_VERSION = "3.14"
 class ProjectConfig:
     root: Path
     python_version: str
+    extras: list[str]
 
 
 def find_project_root(start: Path | None = None) -> Path:
@@ -34,4 +35,6 @@ def load_project_config(root: Path | None = None) -> ProjectConfig:
     tool_data = pyproject_data.get("tool", {})
     scrapy_data = tool_data.get("sphinx-scrapy", {})
     python_version = scrapy_data.get("python-version", LATEST_RTD_PYTHON_VERSION)
-    return ProjectConfig(root=project_root, python_version=str(python_version))
+    extras = scrapy_data.get("extras", []) or []
+    extras = [str(e) for e in extras]
+    return ProjectConfig(root=project_root, python_version=str(python_version), extras=extras)
