@@ -81,7 +81,13 @@ def setup(app: Sphinx) -> None:
         "scrapy_intersphinx_disable", [], "env", types=frozenset({list})
     )
 
-    app.setup_extension("sphinx.ext.intersphinx")
+    for extension in (
+        "sphinx.ext.autodoc",
+        "sphinx.ext.intersphinx",
+        "sphinx.ext.viewcode",
+        "sphinx_llms_txt",
+    ):
+        app.setup_extension(extension)
     app.connect("config-inited", update_config)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6

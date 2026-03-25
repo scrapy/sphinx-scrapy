@@ -12,57 +12,73 @@ sphinx-scrapy
    :target: https://pypi.org/pypi/sphinx-scrapy
    :alt: Supported Python versions
 
-Sphinx_ extension for documentation in the Scrapy_ ecosystem.
-
-.. _Sphinx: https://www.sphinx-doc.org/
-.. _Scrapy: https://scrapy.org/
-
+`Sphinx <https://www.sphinx-doc.org/>`_ extension for documentation in the
+`Scrapy <https://scrapy.org/>`_ ecosystem.
 
 Features
 ========
 
--   Automatic configuration of intersphinx_ for Python_ and Scrapy_.
+-   Automatic ``docs`` `tox <https://tox.readthedocs.io/en/latest/>`_
+    environment definition.
 
-    Ready-to-use, easy-to-enable configuration for the following packages of
-    the Scrapy_ ecosystem is also available:
+-   Automatic `Read the Docs <https://readthedocs.org/>`_ configuration.
 
-    .. _intersphinx: https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
-    .. _Python: https://docs.python.org/
+-   Automatic enablement of the following Sphinx extensions:
 
-    | `attrs <https://www.attrs.org/en/stable/>`_
-    | `cssselect <https://cssselect.readthedocs.io/en/latest>`_
-    | `dateparser <https://dateparser.readthedocs.io/en/latest/>`_
-    | `form2request <https://form2request.readthedocs.io/en/latest/>`_
-    | `formasaurus <https://formasaurus.readthedocs.io/en/latest/>`_
-    | `itemloaders <https://itemloaders.readthedocs.io/en/latest/>`_
-    | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
-    | `lxml <https://lxml.de/apidoc/>`_
-    | `packaging <https://packaging.pypa.io/en/stable/>`_
-    | `parsel <https://parsel.readthedocs.io/en/latest/>`_
-    | `pydantic <https://docs.pydantic.dev/latest/>`_
-    | `pytest <https://docs.pytest.org/en/stable/>`_
-    | `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
-    | `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_
-    | `scrapy-poet <https://scrapy-poet.readthedocs.io/en/stable/>`_
-    | `scrapy-spider-metadata <https://scrapy-spider-metadata.readthedocs.io/en/latest/>`_
-    | `scrapy-zyte-api <https://scrapy-zyte-api.readthedocs.io/en/latest/>`_
-    | `scrapy-zyte-smartproxy <https://scrapy-zyte-smartproxy.readthedocs.io/en/latest/>`_
-    | `scrapyd <https://scrapyd.readthedocs.io/en/latest/>`_
-    | `shub <https://shub.readthedocs.io/en/latest/>`_
-    | `shub-image <https://shub-image.readthedocs.io/en/latest/>`_
-    | `spidermon <https://spidermon.readthedocs.io/en/latest/>`_
-    | `tenacity <https://tenacity.readthedocs.io/en/latest>`_
-    | `twisted <https://docs.twisted.org/en/stable/>`_ (and `twistedapi <https://docs.twisted.org/en/stable/api/>`_)
-    | `url-matcher <https://url-matcher.readthedocs.io/en/stable/>`_
-    | `w3lib <https://w3lib.readthedocs.io/en/latest/>`_
-    | `web-poet <https://web-poet.readthedocs.io/en/stable/>`_
-    | `zyte <https://docs.zyte.com>`_
-    | `zyte-common-items <https://zyte-common-items.readthedocs.io/en/latest>`_
-    | `zyte-parsers <https://zyte-parsers.readthedocs.io/en/latest/>`_
-    | `zyte-spider-templates <https://zyte-spider-templates.readthedocs.io/en/latest>`_
+    - `sphinx.ext.autodoc
+      <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html>`_
+    - `sphinx.ext.intersphinx
+      <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
+    - `sphinx.ext.viewcode
+      <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
+    - `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`__
 
-    To automatically configure intersphinx for any of those packages if
-    installed, add to your ``conf.py`` file:
+-   Automatic configuration of ``sphinx.ext.intersphinx`` for `Python
+    <https://docs.python.org/>`_ and Scrapy_, and easy configuration for
+    :ref:`additional packages <intersphinx-packages>`.
+
+-   Automatic configuration of Sphinx roles of the Scrapy documentation, so
+    that you can easily link to Scrapy settings, request metadata keys, signals
+    and commands:
+
+    .. code-block:: rst
+
+        :setting:`BOT_NAME`
+        :setting:`LOG_LEVEL <scrapy:LOG_LEVEL>`
+        :reqmeta:`download_slot`
+        :signal:`spider_opened`
+        :command:`crawl`
+
+Setup
+=====
+
+#.  Configure in ``pyproject.toml`` the Python version for documentation
+    builds, e.g.:
+
+    .. code-block:: toml
+
+        [tool.sphinx-scrapy]
+        python-version = "3.13"
+    
+    It must be `supported by Read the Docs
+    <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`__.
+
+#.  Add to ``docs/requirements.txt``:
+
+    .. code-block::
+
+        sphinx-scrapy
+
+#.  Add to ``docs/conf.py``:
+
+    .. code-block:: python
+
+        extensions = [
+            "sphinx_scrapy",
+        ]
+
+    To automatically configure ``sphinx.ext.intersphinx`` for installed
+    :ref:`supported package <intersphinx-packages>`:
 
     .. code-block:: python
 
@@ -81,41 +97,72 @@ Features
             "scrapy",
         ]
 
--   Automatic configuration of Sphinx roles of the Scrapy documentation, so
-    that you can easily link to Scrapy settings, request metadata keys, signals
-    and commands:
+#.  Add to ``.pre-commit-config.yaml``:
 
-    .. code-block:: rst
+    .. code-block:: yaml
 
-        :setting:`BOT_NAME`
-        :setting:`LOG_LEVEL <scrapy:LOG_LEVEL>`
-        :reqmeta:`download_slot`
-        :signal:`spider_opened`
-        :command:`crawl`
+        repos:
+        - repo: https://github.com/scrapy/sphinx-scrapy
+            rev: 0.6.1
+            hooks:
+            - id: sphinx-scrapy
 
+#.  Add to ``tox.ini``:
 
-Setup
-=====
+    .. code-block:: ini
 
-#.  Install:
+        [tox]
+        requires =
+            sphinx-scrapy==0.6.1
 
-    .. code-block:: shell
+You can now build the docs with:
 
-        pip install sphinx-scrapy
+.. code-block:: bash
 
-#.  Add to your ``conf.py``:
+    tox -e docs
 
-    .. code-block:: python
+.. _intersphinx-packages:
 
-        extensions = [
-            "sphinx.ext.intersphinx",
-            "sphinx_scrapy",
-        ]
+Intersphinx packages
+====================
 
+``scrapy_intersphinx_enable`` supports the following packages:
+
+| `attrs <https://www.attrs.org/en/stable/>`_
+| `cssselect <https://cssselect.readthedocs.io/en/latest>`_
+| `dateparser <https://dateparser.readthedocs.io/en/latest/>`_
+| `form2request <https://form2request.readthedocs.io/en/latest/>`_
+| `formasaurus <https://formasaurus.readthedocs.io/en/latest/>`_
+| `itemloaders <https://itemloaders.readthedocs.io/en/latest/>`_
+| `jinja <https://jinja.palletsprojects.com/en/latest/>`_
+| `lxml <https://lxml.de/apidoc/>`_
+| `packaging <https://packaging.pypa.io/en/stable/>`_
+| `parsel <https://parsel.readthedocs.io/en/latest/>`_
+| `pydantic <https://docs.pydantic.dev/latest/>`_
+| `pytest <https://docs.pytest.org/en/stable/>`_
+| `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
+| `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_
+| `scrapy-poet <https://scrapy-poet.readthedocs.io/en/stable/>`_
+| `scrapy-spider-metadata <https://scrapy-spider-metadata.readthedocs.io/en/latest/>`_
+| `scrapy-zyte-api <https://scrapy-zyte-api.readthedocs.io/en/latest/>`_
+| `scrapy-zyte-smartproxy <https://scrapy-zyte-smartproxy.readthedocs.io/en/latest/>`_
+| `scrapyd <https://scrapyd.readthedocs.io/en/latest/>`_
+| `shub <https://shub.readthedocs.io/en/latest/>`_
+| `shub-image <https://shub-image.readthedocs.io/en/latest/>`_
+| `spidermon <https://spidermon.readthedocs.io/en/latest/>`_
+| `tenacity <https://tenacity.readthedocs.io/en/latest>`_
+| `twisted <https://docs.twisted.org/en/stable/>`_ (and `twistedapi <https://docs.twisted.org/en/stable/api/>`_)
+| `url-matcher <https://url-matcher.readthedocs.io/en/stable/>`_
+| `w3lib <https://w3lib.readthedocs.io/en/latest/>`_
+| `web-poet <https://web-poet.readthedocs.io/en/stable/>`_
+| `zyte <https://docs.zyte.com>`_
+| `zyte-common-items <https://zyte-common-items.readthedocs.io/en/latest>`_
+| `zyte-parsers <https://zyte-parsers.readthedocs.io/en/latest/>`_
+| `zyte-spider-templates <https://zyte-spider-templates.readthedocs.io/en/latest>`_
 
 Release notes
 =============
 
-See `Release notes`_ for a list of releases and their changes.
-
-.. _Release notes: https://github.com/scrapy/sphinx-scrapy/blob/main/CHANGES.rst
+See `Release notes
+<https://github.com/scrapy/sphinx-scrapy/blob/main/CHANGES.rst>`_ for a list of
+releases and their changes.

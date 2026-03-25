@@ -1,0 +1,5 @@
+- id: sphinx-scrapy
+  name: sphinx-scrapy
+  entry: sphinx-scrapy update-rtd-config
+  language: python
+  pass_filenames: false
