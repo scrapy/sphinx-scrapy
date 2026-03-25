@@ -29,6 +29,6 @@ def tox_add_core_config(core_conf: ConfigSet, state: State) -> None:
             description="build documentation",
             base_python=_python_executable(project_config.python_version),
             deps=["-rdocs/requirements.txt"],
-            commands=[["sphinx-scrapy", "build"]],
+            commands=["sphinx-scrapy build"],
         )
     )
