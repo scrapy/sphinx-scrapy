@@ -10,7 +10,7 @@ dependencies = [
     "packaging",
     "sphinx",
     "sphinx-llms-txt",
-    "sphinx-markdown-builder @ git+https://github.com/AdrianAtZyte/sphinx-markdown-builder.git@2050ffaed43fcc523e03cc7a677cbcb5f5f6d30b",
+    "sphinx-markdown-builder @ git+https://github.com/AdrianAtZyte/sphinx-markdown-builder.git@f689370ba7e5a855a43a20a5cc80ce1aca2c7aaf",
     "tomli; python_version < '3.11'",
 ]
 classifiers = [
