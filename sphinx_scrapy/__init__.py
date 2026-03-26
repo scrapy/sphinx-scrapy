@@ -10,6 +10,8 @@ if TYPE_CHECKING:
 
 INTERSPHINX_MAPPING = {
     "attrs": ("https://www.attrs.org/en/stable/", None),
+    "coverage": ("https://coverage.readthedocs.io/en/latest", None),
+    "cryptography": ("https://cryptography.io/en/latest/", None),
     "cssselect": ("https://cssselect.readthedocs.io/en/latest", None),
     "dateparser": ("https://dateparser.readthedocs.io/en/latest/", None),
     "form2request": ("https://form2request.readthedocs.io/en/latest/", None),
@@ -42,8 +44,10 @@ INTERSPHINX_MAPPING = {
     "scrapyd": ("https://scrapyd.readthedocs.io/en/latest/", None),
     "shub": ("https://shub.readthedocs.io/en/latest/", None),
     "shub-image": ("https://shub-image.readthedocs.io/en/latest/", None),
+    "sphinx": ("https://www.sphinx-doc.org/en/master", None),
     "spidermon": ("https://spidermon.readthedocs.io/en/latest/", None),
     "tenacity": ("https://tenacity.readthedocs.io/en/latest", None),
+    "tox": ("https://tox.wiki/en/latest/", None),
     "twisted": ("https://docs.twisted.org/en/stable/", None),
     "twistedapi": ("https://docs.twisted.org/en/stable/api/", None),
     "url-matcher": ("https://url-matcher.readthedocs.io/en/latest", None),

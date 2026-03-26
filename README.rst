@@ -147,6 +147,8 @@ Intersphinx packages
 ``scrapy_intersphinx_enable`` supports the following packages:
 
 | `attrs <https://www.attrs.org/en/stable/>`_
+| `coverage <https://coverage.readthedocs.io/en/latest>`_
+| `cryptography <https://cryptography.io/en/latest/>`_
 | `cssselect <https://cssselect.readthedocs.io/en/latest>`_
 | `dateparser <https://dateparser.readthedocs.io/en/latest/>`_
 | `form2request <https://form2request.readthedocs.io/en/latest/>`_
@@ -168,8 +170,10 @@ Intersphinx packages
 | `scrapyd <https://scrapyd.readthedocs.io/en/latest/>`_
 | `shub <https://shub.readthedocs.io/en/latest/>`_
 | `shub-image <https://shub-image.readthedocs.io/en/latest/>`_
+| `sphinx <https://www.sphinx-doc.org/en/master>`_
 | `spidermon <https://spidermon.readthedocs.io/en/latest/>`_
 | `tenacity <https://tenacity.readthedocs.io/en/latest>`_
+| `tox <https://tox.wiki/en/latest/>`_
 | `twisted <https://docs.twisted.org/en/stable/>`_ (and `twistedapi <https://docs.twisted.org/en/stable/api/>`_)
 | `url-matcher <https://url-matcher.readthedocs.io/en/stable/>`_
 | `w3lib <https://w3lib.readthedocs.io/en/latest/>`_

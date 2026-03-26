@@ -15,8 +15,12 @@ Release notes
 -   Enabling the ``sphinx_scrapy`` extension now automatically enables
     ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.
 
--   Extended easy intersphinx configuration to `multidict
-    <https://multidict.aio-libs.org/en/latest/>`_.
+-   | Extended easy intersphinx configuration to
+    | `coverage <https://coverage.readthedocs.io/en/latest>`_
+    | `cryptography <https://cryptography.io/en/latest/>`_
+    | `multidict <https://multidict.aio-libs.org/en/latest/>`_
+    | `sphinx <https://www.sphinx-doc.org/en/master>`_
+    | `tox <https://tox.wiki/en/latest/>`_
 
 0.6.1 (2025-09-16)
 ==================
