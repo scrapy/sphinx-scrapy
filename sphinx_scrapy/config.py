@@ -15,7 +15,7 @@ LATEST_RTD_PYTHON_VERSION = "3.14"
 class ProjectConfig:
     root: Path
     python_version: str
-    extras: list[str]
+    extras: set[str]
 
 
 def find_project_root(start: Path | None = None) -> Path:
@@ -27,6 +27,12 @@ def find_project_root(start: Path | None = None) -> Path:
     raise FileNotFoundError(msg)
 
 
+def get_extras(pyproject_data: dict[str, object]) -> set[str]:
+    project_data = pyproject_data.get("project", {})
+    optional_dependencies = project_data.get("optional-dependencies", {})
+    return {str(key) for key in optional_dependencies}
+
+
 def load_project_config(root: Path | None = None) -> ProjectConfig:
     project_root = root or find_project_root()
     pyproject_path = project_root / "pyproject.toml"
@@ -35,6 +41,5 @@ def load_project_config(root: Path | None = None) -> ProjectConfig:
     tool_data = pyproject_data.get("tool", {})
     scrapy_data = tool_data.get("sphinx-scrapy", {})
     python_version = scrapy_data.get("python-version", LATEST_RTD_PYTHON_VERSION)
-    extras = scrapy_data.get("extras", []) or []
-    extras = [str(e) for e in extras]
+    extras = get_extras(pyproject_data)
     return ProjectConfig(root=project_root, python_version=str(python_version), extras=extras)

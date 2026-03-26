@@ -54,14 +54,6 @@ Setup
     It must be `supported by Read the Docs
     <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`_.
 
-    An `extras <https://tox.wiki/en/latest/reference/config.html#extras>`_ list
-    can also be specified for the ``docs`` tox environment, e.g.:
-
-    .. code-block:: toml
-
-        [tool.sphinx-scrapy]
-        extras = ["provider"]
-
 #.  Add to ``docs/requirements.txt``:
 
     .. code-block::
