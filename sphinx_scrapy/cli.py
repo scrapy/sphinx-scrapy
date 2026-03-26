@@ -17,10 +17,10 @@ if TYPE_CHECKING:
 
 def _builder_settings(builder: str) -> list[str]:
     if builder == "html":
-        return ["-D", "llms_txt_uri_template={base_url}{docname}.md"]
+        return ["-D", "llms_txt_uri_template={docname}.md"]
     if builder == "singlemarkdown":
         return [
-            "-D", "llms_txt_uri_template={base_url}{docname}.md",
+            "-D", "llms_txt_uri_template={docname}.md",
             "-D", "singlemarkdown_flavor=llm",
         ]
     return []
