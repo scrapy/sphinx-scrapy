@@ -159,7 +159,7 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
             '  opacity: 0.75;',
             '  cursor: default;',
             '}',
-        ].join('\n');
+        ].join('\\n');
         document.head.appendChild(style);
     }
 
