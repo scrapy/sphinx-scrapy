@@ -9,8 +9,9 @@ description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
     "packaging",
     "sphinx",
+    "sphinx-copybutton",
     "sphinx-llms-txt",
-    "sphinx-markdown-builder @ git+https://github.com/AdrianAtZyte/sphinx-markdown-builder.git@f689370ba7e5a855a43a20a5cc80ce1aca2c7aaf",
+    "sphinx-markdown-builder @ git+https://github.com/AdrianAtZyte/sphinx-markdown-builder.git@8b654c2b5c2cdca8276767c7363a9d1cb6b542ec",
     "tomli; python_version < '3.11'",
 ]
 classifiers = [

@@ -13,7 +13,11 @@ Release notes
 -   Added a pre-commit hook to create or update ``.readthedocs.yml``.
 
 -   Enabling the ``sphinx_scrapy`` extension now automatically enables
-    ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, and ``sphinx_llms_txt``.
+    ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, ``sphinx_copybutton``, and
+    ``sphinx_llms_txt``.
+
+-   Added a "Copy as Markdown" button on HTML pages that copies each page's
+    corresponding ``.md`` counterpart.
 
 -   | Extended easy intersphinx configuration to
     | `coverage <https://coverage.readthedocs.io/en/latest>`_

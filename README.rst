@@ -137,6 +137,8 @@ The following Sphinx extensions are automatically enabled when you enable
 -   `sphinx.ext.viewcode
     <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`_
 
+-   `sphinx_copybutton <https://sphinx-copybutton.readthedocs.io/en/latest/>`_
+
 -   `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`_
 
 .. _intersphinx-packages:

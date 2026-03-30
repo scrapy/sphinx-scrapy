@@ -75,6 +75,121 @@ PACKAGE_OVERRIDES = {
 }
 
 
+COPY_AS_MARKDOWN_BUTTON_JS = """
+(function () {
+    function markdownPathFromCurrentPage(pathname) {
+        if (pathname.endsWith('.html')) {
+            return pathname.slice(0, -5) + '.md';
+        }
+        if (pathname.endsWith('/')) {
+            return pathname + 'index.md';
+        }
+        var lastPart = pathname.split('/').pop() || '';
+        if (!lastPart.includes('.')) {
+            return pathname + '.md';
+        }
+        return pathname + '.md';
+    }
+
+    async function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return;
+        }
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', 'readonly');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+
+    function setTemporaryLabel(button, label) {
+        var previousLabel = button.textContent;
+        button.textContent = label;
+        window.setTimeout(function () {
+            button.textContent = previousLabel;
+            button.disabled = false;
+        }, 1000);
+    }
+
+    async function onButtonClick(button) {
+        button.disabled = true;
+        button.textContent = '...';
+        try {
+            var mdPath = markdownPathFromCurrentPage(window.location.pathname);
+            var response = await fetch(mdPath, { credentials: 'same-origin' });
+            if (!response.ok) {
+                throw new Error('Unable to fetch markdown source');
+            }
+            var markdown = await response.text();
+            await copyToClipboard(markdown);
+            setTemporaryLabel(button, 'Copied');
+        } catch (_error) {
+            setTemporaryLabel(button, 'Error');
+        }
+    }
+
+    function addStyles() {
+        var style = document.createElement('style');
+        style.textContent = [
+            '.scrapy-copy-as-markdown {',
+            '  position: fixed;',
+            '  right: 1rem;',
+            '  bottom: 1rem;',
+            '  z-index: 1000;',
+            '  border: 1px solid #c9d4de;',
+            '  border-radius: 0.45rem;',
+            '  background: #ffffff;',
+            '  color: #233a50;',
+            '  font: inherit;',
+            '  font-size: 0.875rem;',
+            '  line-height: 1;',
+            '  padding: 0.55rem 0.7rem;',
+            '  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);',
+            '  cursor: pointer;',
+            '}',
+            '.scrapy-copy-as-markdown:hover {',
+            '  background: #f3f7fb;',
+            '}',
+            '.scrapy-copy-as-markdown:disabled {',
+            '  opacity: 0.75;',
+            '  cursor: default;',
+            '}',
+        ].join('\n');
+        document.head.appendChild(style);
+    }
+
+    function addButton() {
+        if (!document.body || document.querySelector('.scrapy-copy-as-markdown')) {
+            return;
+        }
+
+        addStyles();
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'scrapy-copy-as-markdown';
+        button.title = 'Copy this page as Markdown';
+        button.setAttribute('aria-label', 'Copy this page as Markdown');
+        button.textContent = '\ud83d\udccb Copy as Markdown';
+        button.addEventListener('click', function () {
+            onButtonClick(button);
+        });
+        document.body.appendChild(button);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addButton);
+    } else {
+        addButton();
+    }
+})();
+"""
+
+
 def setup(app: Sphinx) -> None:
     app.add_config_value(
         "scrapy_intersphinx_enable", [], "env", types=frozenset({list})
@@ -90,9 +205,11 @@ def setup(app: Sphinx) -> None:
         "sphinx.ext.autodoc",
         "sphinx.ext.intersphinx",
         "sphinx.ext.viewcode",
+        "sphinx_copybutton",
         "sphinx_llms_txt",
     ):
         app.setup_extension(extension)
+    app.connect("builder-inited", add_copy_as_markdown_button)
     app.connect("config-inited", update_config)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6
@@ -101,6 +218,12 @@ def setup(app: Sphinx) -> None:
             directivename=crossref_type,
             rolename=crossref_type,
         )
+
+
+def add_copy_as_markdown_button(app: Sphinx) -> None:
+    if app.builder.format != "html":
+        return
+    app.add_js_file(None, body=COPY_AS_MARKDOWN_BUTTON_JS)
 
 
 def update_config(app: Sphinx, config: Config) -> None:
