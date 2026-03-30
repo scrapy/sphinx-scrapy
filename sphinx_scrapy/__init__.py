@@ -77,6 +77,14 @@ PACKAGE_OVERRIDES = {
 
 COPY_AS_MARKDOWN_BUTTON_JS = """
 (function () {
+    var COPY_ICON = String.fromCodePoint(0x1F4CB);
+    var SUCCESS_ICON = String.fromCodePoint(0x2713);
+    var ERROR_ICON = String.fromCodePoint(0x26A0);
+
+    function makeLabel(icon, text) {
+        return icon + ' ' + text;
+    }
+
     function markdownPathFromCurrentPage(pathname) {
         if (pathname.endsWith('.html')) {
             return pathname.slice(0, -5) + '.md';
@@ -127,9 +135,9 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
             }
             var markdown = await response.text();
             await copyToClipboard(markdown);
-            setTemporaryLabel(button, 'Copied');
+            setTemporaryLabel(button, makeLabel(SUCCESS_ICON, 'Copied'));
         } catch (_error) {
-            setTemporaryLabel(button, 'Error');
+            setTemporaryLabel(button, makeLabel(ERROR_ICON, 'Error'));
         }
     }
 
@@ -174,7 +182,7 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
         button.className = 'scrapy-copy-as-markdown';
         button.title = 'Copy this page as Markdown';
         button.setAttribute('aria-label', 'Copy this page as Markdown');
-        button.textContent = '\ud83d\udccb Copy as Markdown';
+        button.textContent = makeLabel(COPY_ICON, 'Copy as Markdown');
         button.addEventListener('click', function () {
             onButtonClick(button);
         });
