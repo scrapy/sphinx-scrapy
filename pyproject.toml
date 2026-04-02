@@ -10,8 +10,8 @@ dependencies = [
     "packaging",
     "sphinx",
     "sphinx-copybutton",
-    "sphinx-llms-txt",
-    "sphinx-markdown-builder @ git+https://github.com/AdrianAtZyte/sphinx-markdown-builder.git@8b654c2b5c2cdca8276767c7363a9d1cb6b542ec",
+    "sphinx-llms-txt @ git+https://github.com/zytedata/sphinx-llms-txt.git@5e8866cb0cc249aa2017ad9050b3b83a7ca16f69",
+    "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@ac9f8babfe622e4300099ab44b96d9d9228e742e",
     "tomli; python_version < '3.11'",
 ]
 classifiers = [
