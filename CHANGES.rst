@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.7.0 (unreleased)
+0.7.0 (2026-04-02)
 ==================
 
 -   Dropped support for Python 3.8 and 3.9, added official support for Python

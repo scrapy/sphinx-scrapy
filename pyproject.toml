@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sphinx-scrapy"
-version = "0.6.1"
+version = "0.7.0"
 description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
     "packaging",
@@ -55,7 +55,7 @@ allow-direct-references = true
 strict = true
 
 [tool.bumpversion]
-current_version = "0.6.1"
+current_version = "0.7.0"
 commit = true
 tag = true
 tag_name = "{new_version}"
