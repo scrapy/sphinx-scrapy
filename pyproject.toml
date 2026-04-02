@@ -7,7 +7,12 @@ name = "sphinx-scrapy"
 version = "0.6.1"
 description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
+    "packaging",
     "sphinx",
+    "sphinx-copybutton",
+    "sphinx-llms-txt @ git+https://github.com/zytedata/sphinx-llms-txt.git@5e8866cb0cc249aa2017ad9050b3b83a7ca16f69",
+    "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@ac9f8babfe622e4300099ab44b96d9d9228e742e",
+    "tomli; python_version < '3.11'",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -16,12 +21,11 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -29,14 +33,23 @@ classifiers = [
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 authors = [{ name = "Scrapy developers", email = "opensource@zyte.com" }]
 maintainers = [{ name = "Scrapy developers", email = "opensource@zyte.com" }]
+
+[project.scripts]
+sphinx-scrapy = "sphinx_scrapy.cli:main"
+
+[project.entry-points.tox]
+sphinx_scrapy = "sphinx_scrapy.tox_plugin"
 
 [project.urls]
 Source = "https://github.com/scrapy/sphinx-scrapy"
 Tracker = "https://github.com/scrapy/sphinx-scrapy/issues"
 "Release notes" = "https://github.com/scrapy/sphinx-scrapy/blob/main/CHANGES.rst"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.mypy]
 strict = true
@@ -52,6 +65,18 @@ filename = "CHANGES.rst"
 search = "\\(unreleased\\)$"
 replace = "({now:%Y-%m-%d})"
 regex = true
+
+[[tool.bumpversion.files]]
+filename = "README.rst"
+search = "rev: {current_version}"
+replace = "rev: {new_version}"
+regex = false
+
+[[tool.bumpversion.files]]
+filename = "README.rst"
+search = "sphinx-scrapy=={current_version}"
+replace = "sphinx-scrapy=={new_version}"
+regex = false
 
 [tool.ruff.lint]
 extend-select = [

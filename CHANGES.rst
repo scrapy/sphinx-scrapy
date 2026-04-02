@@ -2,6 +2,30 @@
 Release notes
 =============
 
+0.7.0 (unreleased)
+==================
+
+-   Dropped support for Python 3.8 and 3.9, added official support for Python
+    3.14.
+
+-   Added a tox plugin that provides a ``docs`` environment.
+
+-   Added a pre-commit hook to create or update ``.readthedocs.yml``.
+
+-   Enabling the ``sphinx_scrapy`` extension now automatically enables
+    ``sphinx.ext.autodoc``, ``sphinx.ext.viewcode``, ``sphinx_copybutton``, and
+    ``sphinx_llms_txt``.
+
+-   Added a "Copy as Markdown" button on HTML pages that copies each page's
+    corresponding ``.md`` counterpart.
+
+-   | Extended easy intersphinx configuration to
+    | `coverage <https://coverage.readthedocs.io/en/latest>`_
+    | `cryptography <https://cryptography.io/en/latest/>`_
+    | `multidict <https://multidict.aio-libs.org/en/latest/>`_
+    | `sphinx <https://www.sphinx-doc.org/en/master>`_
+    | `tox <https://tox.wiki/en/latest/>`_
+
 0.6.1 (2025-09-16)
 ==================
 
