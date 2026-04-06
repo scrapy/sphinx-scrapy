@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.7.2 (unreleased)
+==================
+
+-   Added a ``tox`` extra, to be used in the ``requires`` section of
+    ``tox.ini`` to ensure a supported version of ``tox`` is used.
+
 0.7.1 (2026-04-06)
 ==================
 
