@@ -116,6 +116,7 @@ def update_rtd_config() -> int:
         ),
         encoding="utf-8",
     )
+    print("Updated .readthedocs.yml")
     return 0
 
 
