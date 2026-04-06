@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.7.1 (unreleased)
+0.7.1 (2026-04-06)
 ==================
 
 -   Fixed the generated Read the Docs configuration, which was causing builds
