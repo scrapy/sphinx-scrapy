@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.7.2 (unreleased)
+0.7.2 (2026-04-06)
 ==================
 
 -   Added a ``tox`` extra, to be used in the ``requires`` section of

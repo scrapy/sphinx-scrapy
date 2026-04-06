@@ -58,7 +58,7 @@ Setup
 
     .. code-block::
 
-        sphinx-scrapy==0.7.1
+        sphinx-scrapy==0.7.2
 
 #.  Add to ``docs/conf.py``:
 
@@ -100,7 +100,7 @@ Setup
 
         repos:
         - repo: https://github.com/scrapy/sphinx-scrapy
-            rev: 0.7.1
+            rev: 0.7.2
             hooks:
             - id: sphinx-scrapy
 
