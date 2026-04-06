@@ -77,8 +77,8 @@ regex = false
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
-search = "sphinx-scrapy=={current_version}"
-replace = "sphinx-scrapy=={new_version}"
+search = "sphinx-scrapy[tox]=={current_version}"
+replace = "sphinx-scrapy[tox]=={new_version}"
 regex = false
 
 [tool.ruff.lint]

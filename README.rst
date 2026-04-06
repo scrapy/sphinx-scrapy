@@ -110,7 +110,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox]==0.7.1
+            sphinx-scrapy[tox]==0.7.2
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.
