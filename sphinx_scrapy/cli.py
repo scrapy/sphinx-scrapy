@@ -109,6 +109,7 @@ def update_rtd_config() -> int:
                 "  commands:",
                 "    - pip install tox",
                 "    - tox -e docs",
+                "    - mkdir -p $READTHEDOCS_OUTPUT/html",
                 "    - cp -a docs/_build/all/. $READTHEDOCS_OUTPUT/html/",
                 "",
             ]
