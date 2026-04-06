@@ -2,6 +2,15 @@
 Release notes
 =============
 
+0.7.1 (unreleased)
+==================
+
+-   Fixed the generated Read the Docs configuration, which was causing builds
+    to fail.
+
+-   When the pre-commit hook fails, it now reports that it updated
+    :file:`.readthedocs.yml`.
+
 0.7.0 (2026-04-02)
 ==================
 
