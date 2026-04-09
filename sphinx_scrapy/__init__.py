@@ -225,10 +225,8 @@ def setup(app: Sphinx) -> None:
     ):
         app.setup_extension(extension)
 
-    # Override sphinx-sitemap’s default with a saner value.
-    app.add_config_value("sitemap_url_scheme", "{link}", "env", types=frozenset({str}))
-
     app.connect("builder-inited", add_copy_as_markdown_button)
+    app.connect("builder-inited", set_better_defaults)
     app.connect("config-inited", update_config)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6
@@ -248,6 +246,18 @@ def add_copy_as_markdown_button(app: Sphinx) -> None:
 def update_config(app: Sphinx, config: Config) -> None:
     configure_intersphinx(config)
     configure_sitemap(config)
+
+
+def set_better_defaults(app: Sphinx) -> None:
+    manual_conf = getattr(app, "_raw_config", {})
+    better_defaults = {
+        "sitemap_excludes": ["genindex.html", "search.html"],
+        "sitemap_url_scheme": "{link}",
+    }
+    for key, value in better_defaults.items():
+        if key in manual_conf:
+            continue
+        setattr(app.config, key, value)
 
 
 def configure_intersphinx(config: Config) -> None:
@@ -275,7 +285,7 @@ def configure_sitemap(config: Config) -> None:
         project_config = load_project_config()
         if project_config.project_id:
             package = project_config.project_id
-        elif hasattr(config, "project", None):
+        elif hasattr(config, "project"):
             package = re.sub(r"[\s_]+", "-", str(config.project)).lower()
         if not package:
             return
