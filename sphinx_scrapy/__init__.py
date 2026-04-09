@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import re
+from logging import getLogger
 from typing import TYPE_CHECKING
+
+from .config import load_project_config
 
 if TYPE_CHECKING:
     from collections.abc import Generator
 
     from sphinx.application import Sphinx
     from sphinx.config import Config
+
+logger = getLogger(__name__)
 
 INTERSPHINX_MAPPING = {
     "attrs": ("https://www.attrs.org/en/stable/", None),
@@ -22,7 +28,7 @@ INTERSPHINX_MAPPING = {
     "multidict": ("https://multidict.aio-libs.org/en/latest/", None),
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
-    "pydantic": ("https://docs.pydantic.dev/latest/", None),
+    "pydantic": ("https://pydantic.dev/docs/validation/latest/", None),
     "pytest": ("https://docs.pytest.org/en/stable/", None),
     "python": ("https://docs.python.org/3", None),
     "python-scrapinghub": (
@@ -215,9 +221,12 @@ def setup(app: Sphinx) -> None:
         "sphinx.ext.viewcode",
         "sphinx_copybutton",
         "sphinx_llms_txt",
+        "sphinx_sitemap",
     ):
         app.setup_extension(extension)
+
     app.connect("builder-inited", add_copy_as_markdown_button)
+    app.connect("builder-inited", set_better_defaults)
     app.connect("config-inited", update_config)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6
@@ -235,6 +244,23 @@ def add_copy_as_markdown_button(app: Sphinx) -> None:
 
 
 def update_config(app: Sphinx, config: Config) -> None:
+    configure_intersphinx(config)
+    configure_sitemap(config)
+
+
+def set_better_defaults(app: Sphinx) -> None:
+    manual_conf = getattr(app, "_raw_config", {})
+    better_defaults = {
+        "sitemap_excludes": ["genindex.html", "search.html"],
+        "sitemap_url_scheme": "{link}",
+    }
+    for key, value in better_defaults.items():
+        if key in manual_conf:
+            continue
+        setattr(app.config, key, value)
+
+
+def configure_intersphinx(config: Config) -> None:
     known = set(INTERSPHINX_MAPPING)
     default = {k for k in INTERSPHINX_MAPPING if PACKAGE_OVERRIDES.get(k) is True}
     disabled = set(config.scrapy_intersphinx_disable)
@@ -251,6 +277,26 @@ def update_config(app: Sphinx, config: Config) -> None:
     )
     for k in to_configure:
         config.intersphinx_mapping[k] = INTERSPHINX_MAPPING[k]
+
+
+def configure_sitemap(config: Config) -> None:
+    if not config.html_baseurl:
+        package: str | None = None
+        project_config = load_project_config()
+        if project_config.project_id:
+            package = project_config.project_id
+        elif hasattr(config, "project"):
+            package = re.sub(r"[\s_]+", "-", str(config.project)).lower()
+        if not package:
+            return
+        if package in INTERSPHINX_MAPPING:
+            base_url = INTERSPHINX_MAPPING[package][0]
+        else:
+            base_url = f"https://{package}.readthedocs.io/en/latest/"
+        config.html_baseurl = base_url
+    if not config.html_baseurl.endswith("/"):
+        config.html_baseurl = config.html_baseurl + "/"
+        logger.warning("html_baseurl should end with a slash; automatically fixed to %r", config.html_baseurl)
 
 
 def installed(names: set[str]) -> Generator[str, None, None]:
