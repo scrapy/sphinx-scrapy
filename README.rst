@@ -88,6 +88,14 @@ Setup
             "scrapy",
         ]
 
+    The ``html_baseurl`` option for `sitemap generation
+    <https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html#usage>`_
+    is generated automatically based on the project name (``pyproject.toml`` or
+    ``conf.py``) and known documentation URLs (the same used for easy
+    intersphinx configuration) with a fallback to
+    https://<project>.readthedocs.io/en/latest/. You can alternatively define
+    the setting yourself in ``conf.py``.
+
 #.  Add to ``docs/.gitignore``:
 
     .. code-block::
