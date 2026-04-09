@@ -214,6 +214,7 @@ def setup(app: Sphinx) -> None:
     app.add_config_value(
         "scrapy_intersphinx_disable", [], "env", types=frozenset({list})
     )
+    app.add_config_value("sitemap_url_scheme", "{link}", "env", types=frozenset({str}))
 
     for extension in (
         "sphinx.ext.autodoc",
@@ -266,7 +267,6 @@ def configure_intersphinx(config: Config) -> None:
 
 
 def configure_sitemap(config: Config) -> None:
-    config.sitemap_url_scheme = "{link}"
     if not config.html_baseurl:
         package: str | None = None
         project_config = load_project_config()
