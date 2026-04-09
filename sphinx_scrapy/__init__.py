@@ -28,7 +28,7 @@ INTERSPHINX_MAPPING = {
     "multidict": ("https://multidict.aio-libs.org/en/latest/", None),
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
-    "pydantic": ("https://docs.pydantic.dev/latest/", None),
+    "pydantic": ("https://pydantic.dev/docs/validation/latest/", None),
     "pytest": ("https://docs.pytest.org/en/stable/", None),
     "python": ("https://docs.python.org/3", None),
     "python-scrapinghub": (
