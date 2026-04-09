@@ -214,7 +214,6 @@ def setup(app: Sphinx) -> None:
     app.add_config_value(
         "scrapy_intersphinx_disable", [], "env", types=frozenset({list})
     )
-    app.add_config_value("sitemap_url_scheme", "{link}", "env", types=frozenset({str}))
 
     for extension in (
         "sphinx.ext.autodoc",
@@ -225,6 +224,10 @@ def setup(app: Sphinx) -> None:
         "sphinx_sitemap",
     ):
         app.setup_extension(extension)
+
+    # Override sphinx-sitemap’s default with a saner value.
+    app.add_config_value("sitemap_url_scheme", "{link}", "env", types=frozenset({str}))
+
     app.connect("builder-inited", add_copy_as_markdown_button)
     app.connect("config-inited", update_config)
 
