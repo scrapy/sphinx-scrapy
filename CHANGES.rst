@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.0 (unreleased)
+0.8.0 (2026-04-09)
 ==================
 
 -   Now generates a sitemap.
