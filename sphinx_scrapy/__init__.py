@@ -83,13 +83,9 @@ PACKAGE_OVERRIDES = {
 
 COPY_AS_MARKDOWN_BUTTON_JS = """
 (function () {
-    var COPY_ICON = String.fromCodePoint(0x1F4CB);
-    var SUCCESS_ICON = String.fromCodePoint(0x2713);
-    var ERROR_ICON = String.fromCodePoint(0x26A0);
-
-    function makeLabel(icon, text) {
-        return icon + ' ' + text;
-    }
+    var DEFAULT_LABEL = 'M\u2193';
+    var SUCCESS_LABEL = 'Copied';
+    var ERROR_LABEL = 'Error';
 
     function markdownPathFromCurrentPage(pathname) {
         if (pathname.endsWith('.html')) {
@@ -121,16 +117,17 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
         document.body.removeChild(textarea);
     }
 
-    function setTemporaryLabel(button, label) {
-        var previousLabel = button.textContent;
+    function setTemporaryLabel(button, label, previousLabel) {
+        var prev = typeof previousLabel !== 'undefined' ? previousLabel : button.textContent;
         button.textContent = label;
         window.setTimeout(function () {
-            button.textContent = previousLabel;
+            button.textContent = prev;
             button.disabled = false;
         }, 1000);
     }
 
     async function onButtonClick(button) {
+        var previousLabel = button.textContent;
         button.disabled = true;
         button.textContent = '...';
         try {
@@ -141,9 +138,9 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
             }
             var markdown = await response.text();
             await copyToClipboard(markdown);
-            setTemporaryLabel(button, makeLabel(SUCCESS_ICON, 'Copied'));
+            setTemporaryLabel(button, SUCCESS_LABEL, previousLabel);
         } catch (_error) {
-            setTemporaryLabel(button, makeLabel(ERROR_ICON, 'Error'));
+            setTemporaryLabel(button, ERROR_LABEL, previousLabel);
         }
     }
 
@@ -151,10 +148,8 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
         var style = document.createElement('style');
         style.textContent = [
             '.scrapy-copy-as-markdown {',
-            '  position: fixed;',
-            '  right: 1rem;',
-            '  bottom: 1rem;',
-            '  z-index: 1000;',
+            '  display: inline-block;',
+            '  margin-left: 0.25rem;',
             '  border: 1px solid #c9d4de;',
             '  border-radius: 0.45rem;',
             '  background: #ffffff;',
@@ -162,7 +157,7 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
             '  font: inherit;',
             '  font-size: 0.875rem;',
             '  line-height: 1;',
-            '  padding: 0.55rem 0.7rem;',
+            '  padding: 0.25rem 0.25rem;',
             '  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);',
             '  cursor: pointer;',
             '}',
@@ -172,6 +167,16 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
             '.scrapy-copy-as-markdown:disabled {',
             '  opacity: 0.75;',
             '  cursor: default;',
+            '}',
+            '.scrapy-copy-as-markdown-title-wrapper {',
+            '  display: flex;',
+            '  align-items: center;',
+            '  justify-content: space-between;',
+            '  gap: 1rem;',
+            '  width: 100%;',
+            '}',
+            '.scrapy-copy-as-markdown-title-wrapper h1 {',
+            '  margin: 0;',
             '}',
         ].join('\\n');
         document.head.appendChild(style);
@@ -188,11 +193,24 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
         button.className = 'scrapy-copy-as-markdown';
         button.title = 'Copy this page as Markdown';
         button.setAttribute('aria-label', 'Copy this page as Markdown');
-        button.textContent = makeLabel(COPY_ICON, 'Copy as Markdown');
+        button.textContent = DEFAULT_LABEL;
         button.addEventListener('click', function () {
             onButtonClick(button);
         });
-        document.body.appendChild(button);
+
+        var h1 = document.querySelector('#main h1') || document.querySelector('h1');
+        if (h1 && h1.parentNode) {
+            var parent = h1.parentNode;
+            var wrapper = document.createElement('div');
+            wrapper.className = 'scrapy-copy-as-markdown-title-wrapper';
+            parent.replaceChild(wrapper, h1);
+            wrapper.appendChild(h1);
+            wrapper.appendChild(button);
+        } else {
+            // fallback: insert at top of body but keep within the first container
+            var container = document.body.firstElementChild || document.body;
+            container.insertBefore(button, container.firstChild);
+        }
     }
 
     if (document.readyState === 'loading') {

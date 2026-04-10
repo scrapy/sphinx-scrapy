@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.2 (unreleased)
+==================
+
+-   Make the copy-as-Markdown button smaller and place it to the right of the
+    page title.
+
 0.8.1 (2026-04-10)
 ==================
 
