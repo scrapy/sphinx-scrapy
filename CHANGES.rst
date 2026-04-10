@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.1 (unreleased)
+==================
+
+-   Addressed warnings affecting sitemap generation due to missing ``/`` at the
+    end of InterSphinx URLs.
+
 0.8.0 (2026-04-09)
 ==================
 
