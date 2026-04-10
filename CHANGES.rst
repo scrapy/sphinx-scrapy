@@ -5,6 +5,8 @@ Release notes
 0.8.2 (unreleased)
 ==================
 
+-   Upgrade sphinx-markdown-builder.
+
 -   Make the copy-as-Markdown button smaller and place it to the right of the
     page title.
 
