@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.1 (unreleased)
+0.8.1 (2026-04-10)
 ==================
 
 -   Addressed warnings affecting sitemap generation due to missing ``/`` at the
