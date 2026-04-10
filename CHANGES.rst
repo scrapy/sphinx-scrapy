@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.2 (unreleased)
+0.8.2 (2026-04-10)
 ==================
 
 -   Upgrade sphinx-markdown-builder.
