@@ -15,10 +15,12 @@ if TYPE_CHECKING:
 logger = getLogger(__name__)
 
 INTERSPHINX_MAPPING = {
+    "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
     "attrs": ("https://www.attrs.org/en/stable/", None),
     "coverage": ("https://coverage.readthedocs.io/en/latest/", None),
     "cryptography": ("https://cryptography.io/en/latest/", None),
     "cssselect": ("https://cssselect.readthedocs.io/en/latest/", None),
+    "curl-cffi": ("https://curl-cffi.readthedocs.io/en/latest/", None),
     "dateparser": ("https://dateparser.readthedocs.io/en/latest/", None),
     "form2request": ("https://form2request.readthedocs.io/en/latest/", None),
     "formasaurus": ("https://formasaurus.readthedocs.io/en/latest/", None),
@@ -26,6 +28,7 @@ INTERSPHINX_MAPPING = {
     "jinja": ("https://jinja.palletsprojects.com/en/latest/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
     "multidict": ("https://multidict.aio-libs.org/en/latest/", None),
+    "niquests": ("https://niquests.readthedocs.io/en/latest/", None),
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
     "pydantic": ("https://pydantic.dev/docs/validation/latest/", None),

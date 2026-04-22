@@ -159,10 +159,12 @@ Intersphinx packages
 
 ``scrapy_intersphinx_enable`` supports the following packages:
 
+| `aiohttp <https://docs.aiohttp.org/en/stable/>`_
 | `attrs <https://www.attrs.org/en/stable/>`_
 | `coverage <https://coverage.readthedocs.io/en/latest>`_
 | `cryptography <https://cryptography.io/en/latest/>`_
 | `cssselect <https://cssselect.readthedocs.io/en/latest>`_
+| `curl-cffi <https://curl-cffi.readthedocs.io/en/latest/>`_
 | `dateparser <https://dateparser.readthedocs.io/en/latest/>`_
 | `form2request <https://form2request.readthedocs.io/en/latest/>`_
 | `formasaurus <https://formasaurus.readthedocs.io/en/latest/>`_
@@ -170,6 +172,7 @@ Intersphinx packages
 | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
 | `lxml <https://lxml.de/apidoc/>`_
 | `multidict <https://multidict.aio-libs.org/en/latest/>`_
+| `niquests <https://niquests.readthedocs.io/en/latest/>`_
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `parsel <https://parsel.readthedocs.io/en/latest/>`_
 | `pydantic <https://docs.pydantic.dev/latest/>`_
