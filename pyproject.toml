@@ -11,7 +11,7 @@ dependencies = [
     "sphinx",
     "sphinx-copybutton",
     "sphinx-llms-txt @ git+https://github.com/zytedata/sphinx-llms-txt.git@5e8866cb0cc249aa2017ad9050b3b83a7ca16f69",
-    "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@d12c2d188009c5230f18cd6a904c03d1eca066ed",
+    "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@cfe4c0bfd7b4542f7e6b65a58cdf9ec765829940",
     "sphinx-sitemap",
     "tomli; python_version < '3.11'",
 ]
