@@ -74,13 +74,16 @@ regex = true
 filename = "README.rst"
 search = "rev: {current_version}"
 replace = "rev: {new_version}"
-regex = false
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
-search = "sphinx-scrapy[tox]=={current_version}"
-replace = "sphinx-scrapy[tox]=={new_version}"
-regex = false
+search = "sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@{current_version}"
+replace = "sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "README.rst"
+search = "sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@{current_version}"
+replace = "sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@{new_version}"
 
 [tool.ruff.lint]
 extend-select = [

@@ -56,9 +56,12 @@ Setup
 
 #.  Add to ``docs/requirements.txt``:
 
-    .. code-block::
+    Install from Git, because this project currently depends on Git-based
+    packages and cannot be published to PyPI:
 
-        sphinx-scrapy==0.7.2
+    .. code-block:: text
+
+        sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.2
 
 #.  Add to ``docs/conf.py``:
 
@@ -118,7 +121,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox]==0.8.2
+            sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.2
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.
