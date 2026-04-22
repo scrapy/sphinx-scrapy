@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.3 (unreleased)
+0.8.3 (2026-04-22)
 ==================
 
 -   Rewrite generated Markdown links for supported Intersphinx targets from
