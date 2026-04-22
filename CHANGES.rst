@@ -2,6 +2,22 @@
 Release notes
 =============
 
+0.8.3 (unreleased)
+==================
+
+-   Rewrite generated Markdown links for supported Intersphinx targets from
+    ``.html`` to ``.md``.
+
+-   | Extended easy Intersphinx configuration to
+    | `aiohttp <https://docs.aiohttp.org/en/stable/>`_
+    | `curl-cffi <https://curl-cffi.readthedocs.io/en/latest/>`_
+    | `niquests <https://niquests.readthedocs.io/en/latest/>`_
+
+-   Document installation from Git for ``sphinx-scrapy`` and
+    ``sphinx-scrapy[tox]``.
+
+-   Upgrade sphinx-markdown-builder.
+
 0.8.2 (2026-04-10)
 ==================
 
@@ -14,7 +30,7 @@ Release notes
 ==================
 
 -   Addressed warnings affecting sitemap generation due to missing ``/`` at the
-    end of InterSphinx URLs.
+    end of Intersphinx URLs.
 
 0.8.0 (2026-04-09)
 ==================
@@ -53,7 +69,7 @@ Release notes
 -   Added a "Copy as Markdown" button on HTML pages that copies each page's
     corresponding ``.md`` counterpart.
 
--   | Extended easy intersphinx configuration to
+-   | Extended easy Intersphinx configuration to
     | `coverage <https://coverage.readthedocs.io/en/latest>`_
     | `cryptography <https://cryptography.io/en/latest/>`_
     | `multidict <https://multidict.aio-libs.org/en/latest/>`_
@@ -69,7 +85,7 @@ Fixed Python 3.8 support.
 0.6.0 (2025-09-16)
 ==================
 
-| Extended easy intersphinx configuration to:
+| Extended easy Intersphinx configuration to:
 | `pydantic <https://docs.pydantic.dev/latest/>`_
 
 
@@ -82,7 +98,7 @@ Change the minimum version of Python from 3.9 to 3.8.
 0.4.0 (2025-09-16)
 ==================
 
-| Extended easy intersphinx configuration to:
+| Extended easy Intersphinx configuration to:
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `pytest <https://docs.pytest.org/en/stable/>`_
 
@@ -90,7 +106,7 @@ Change the minimum version of Python from 3.9 to 3.8.
 0.3.0 (2025-09-02)
 ==================
 
-| Extended easy intersphinx configuration to:
+| Extended easy Intersphinx configuration to:
 | `jinja <https://jinja.palletsprojects.com/en/latest/>`_
 | `lxml <https://lxml.de/apidoc/>`_
 
@@ -98,7 +114,7 @@ Change the minimum version of Python from 3.9 to 3.8.
 0.2.0 (2025-06-16)
 ==================
 
-| Extended easy intersphinx configuration to:
+| Extended easy Intersphinx configuration to:
 | `dateparser <https://dateparser.readthedocs.io/en/latest/>`_
 | `form2request <https://form2request.readthedocs.io/en/latest/>`_
 | `formasaurus <https://formasaurus.readthedocs.io/en/latest/>`_
