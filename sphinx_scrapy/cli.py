@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Callable
 import concurrent.futures
 import re
 import shutil
@@ -22,11 +23,129 @@ if TYPE_CHECKING:
 
 
 URL_PATTERN = re.compile(r"https?://[^\s<>()\[\]{}\"']+")
+MARKDOWN_LINK_PATTERN = re.compile(
+    r"(?P<prefix>!?\[[^\]]*\]\()"
+    r"(?P<target>[^)\s]+)"
+    r"(?P<title>\s+\"[^\"]*\")?"
+    r"(?P<suffix>\))"
+)
 
 
 def _intersphinx_base_urls() -> tuple[str, ...]:
     bases = {url for url, _inventory in INTERSPHINX_MAPPING.values()}
     return tuple(sorted(bases, key=len, reverse=True))
+
+
+def _project_docs_base_url(project_id: str | None) -> str | None:
+    if not project_id:
+        return None
+    if project_id in INTERSPHINX_MAPPING:
+        return INTERSPHINX_MAPPING[project_id][0]
+    return f"https://{project_id}.readthedocs.io/en/latest/"
+
+
+def _split_wrapped_markdown_target(target: str) -> tuple[str, str, str]:
+    if len(target) >= 2 and target.startswith("<") and target.endswith(">"):
+        return "<", target[1:-1], ">"
+    return "", target, ""
+
+
+def _rewrite_markdown_links(
+    content: str,
+    rewrite_target: Callable[[str], str],
+) -> str:
+    in_fence = False
+    fence_char = ""
+    rewritten_lines: list[str] = []
+
+    def replacement(match: re.Match[str]) -> str:
+        target = match.group("target")
+        rewritten_target = rewrite_target(target)
+        if rewritten_target == target:
+            return match.group(0)
+
+        title = match.group("title") or ""
+        return (
+            f"{match.group('prefix')}"
+            f"{rewritten_target}"
+            f"{title}"
+            f"{match.group('suffix')}"
+        )
+
+    for line in content.splitlines(keepends=True):
+        stripped = line.lstrip()
+        if stripped.startswith("```") or stripped.startswith("~~~"):
+            marker = stripped[0]
+            if not in_fence:
+                in_fence = True
+                fence_char = marker
+            elif marker == fence_char:
+                in_fence = False
+                fence_char = ""
+            rewritten_lines.append(line)
+            continue
+
+        if in_fence:
+            rewritten_lines.append(line)
+            continue
+
+        rewritten_lines.append(MARKDOWN_LINK_PATTERN.sub(replacement, line))
+
+    return "".join(rewritten_lines)
+
+
+def _rewrite_llms_link_target(
+    target: str,
+    docs_host: str,
+    docs_path_prefix: str,
+) -> str:
+    wrapper_prefix, wrapped_target, wrapper_suffix = (
+        _split_wrapped_markdown_target(target)
+    )
+    parts = urlsplit(wrapped_target)
+
+    if parts.scheme or parts.netloc:
+        if parts.scheme not in {"http", "https"}:
+            return target
+        if parts.netloc.lower() != docs_host:
+            return target
+
+    if not parts.path.endswith(".md"):
+        return target
+
+    clean_path = parts.path.lstrip("/")
+    while clean_path.startswith("./"):
+        clean_path = clean_path[2:]
+    if clean_path.startswith("../"):
+        return target
+
+    if docs_path_prefix and not clean_path.startswith(docs_path_prefix):
+        clean_path = f"{docs_path_prefix}{clean_path}"
+
+    rewritten_target = urlunsplit(("", "", clean_path, parts.query, parts.fragment))
+    return f"{wrapper_prefix}{rewritten_target}{wrapper_suffix}"
+
+
+def _rewrite_llms_links_to_docs_path(
+    output_dir: Path,
+    docs_base_url: str | None,
+) -> None:
+    llms_path = output_dir / "llms.txt"
+    if docs_base_url is None or not llms_path.is_file():
+        return
+
+    docs_parts = urlsplit(docs_base_url)
+    docs_host = docs_parts.netloc.lower()
+    docs_path = docs_parts.path.strip("/")
+    docs_path_prefix = f"{docs_path}/" if docs_path else ""
+
+    content = llms_path.read_text(encoding="utf-8")
+    rewritten = _rewrite_markdown_links(
+        content,
+        lambda target: _rewrite_llms_link_target(target, docs_host, docs_path_prefix),
+    )
+    if rewritten != content:
+        llms_path.write_text(rewritten, encoding="utf-8")
 
 
 def _iter_markdown_outputs(output_dir: Path) -> list[Path]:
@@ -158,6 +277,7 @@ def _run_builder(builder: str, source_dir: Path, build_dir: Path) -> None:
 
 def build_docs() -> int:
     config = load_project_config()
+    docs_base_url = _project_docs_base_url(config.project_id)
     docs_dir = config.root / "docs"
     if not docs_dir.is_dir():
         print("docs directory not found", file=sys.stderr)
@@ -188,6 +308,7 @@ def build_docs() -> int:
     shutil.copytree(sphinx_build_dir / "markdown", all_dir, dirs_exist_ok=True)
     shutil.copy2(sphinx_build_dir / "singlemarkdown" / "index.md", all_dir / "llms-full.txt")
     _rewrite_intersphinx_links_to_markdown(all_dir)
+    _rewrite_llms_links_to_docs_path(all_dir, docs_base_url)
 
     print("\nDocumentation generated in docs/_build/all.")
     return 0
