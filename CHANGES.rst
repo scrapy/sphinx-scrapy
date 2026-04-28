@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.4 (unreleased)
+0.8.4 (2026-04-28)
 ==================
 
 -   Fix links in :file:`llms.txt`.
