@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from packaging.utils import canonicalize_name
+
 try:
     import tomllib
 except ModuleNotFoundError:
@@ -34,6 +36,10 @@ def get_extras(pyproject_data: dict[str, object]) -> set[str]:
     return {str(key) for key in optional_dependencies}
 
 
+def normalize_project_id(project_id: str) -> str:
+    return canonicalize_name(project_id.strip())
+
+
 def load_project_config(root: Path | None = None) -> ProjectConfig:
     """Load project configuration from a pyproject.toml if available.
 
@@ -54,10 +60,15 @@ def load_project_config(root: Path | None = None) -> ProjectConfig:
     scrapy_data = tool_data.get("sphinx-scrapy", {})
     python_version = scrapy_data.get("python-version", LATEST_RTD_PYTHON_VERSION)
     extras = get_extras(pyproject_data)
-    project_id = pyproject_data.get("project", {}).get("name")
+    raw_project_id = pyproject_data.get("project", {}).get("name")
+    project_id = None
+    if raw_project_id is not None:
+        normalized_project_id = normalize_project_id(str(raw_project_id))
+        if normalized_project_id:
+            project_id = normalized_project_id
     return ProjectConfig(
         root=project_root,
         python_version=str(python_version) if python_version is not None else None,
         extras=extras,
-        project_id=str(project_id) if project_id is not None else None,
+        project_id=project_id,
     )

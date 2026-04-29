@@ -4,7 +4,7 @@ import re
 from logging import getLogger
 from typing import TYPE_CHECKING
 
-from .config import load_project_config
+from .config import load_project_config, normalize_project_id
 
 if TYPE_CHECKING:
     from collections.abc import Generator
@@ -305,9 +305,9 @@ def configure_sitemap(config: Config) -> None:
         package: str | None = None
         project_config = load_project_config()
         if project_config.project_id:
-            package = project_config.project_id
+            package = normalize_project_id(project_config.project_id)
         elif hasattr(config, "project"):
-            package = re.sub(r"[\s_]+", "-", str(config.project)).lower()
+            package = normalize_project_id(re.sub(r"\s+", "-", str(config.project)))
         if not package:
             return
         if package in INTERSPHINX_MAPPING:

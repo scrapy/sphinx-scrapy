@@ -16,7 +16,7 @@ from packaging.version import InvalidVersion, Version
 from sphinx.cmd.build import main as sphinx_build_main
 
 from . import INTERSPHINX_MAPPING
-from .config import LATEST_RTD_PYTHON_VERSION, load_project_config
+from .config import LATEST_RTD_PYTHON_VERSION, load_project_config, normalize_project_id
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -39,9 +39,12 @@ def _intersphinx_base_urls() -> tuple[str, ...]:
 def _project_docs_base_url(project_id: str | None) -> str | None:
     if not project_id:
         return None
-    if project_id in INTERSPHINX_MAPPING:
-        return INTERSPHINX_MAPPING[project_id][0]
-    return f"https://{project_id}.readthedocs.io/en/latest/"
+    normalized_project_id = normalize_project_id(project_id)
+    if not normalized_project_id:
+        return None
+    if normalized_project_id in INTERSPHINX_MAPPING:
+        return INTERSPHINX_MAPPING[normalized_project_id][0]
+    return f"https://{normalized_project_id}.readthedocs.io/en/latest/"
 
 
 def _split_wrapped_markdown_target(target: str) -> tuple[str, str, str]:
