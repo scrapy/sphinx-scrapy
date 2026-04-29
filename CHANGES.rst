@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.5 (unreleased)
+==================
+
+-   Normalize project IDs loaded from :file:`pyproject.toml` and inferred from
+    Sphinx metadata.
+
 0.8.4 (2026-04-28)
 ==================
 
