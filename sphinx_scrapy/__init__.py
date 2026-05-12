@@ -255,6 +255,7 @@ def setup(app: Sphinx) -> None:
         app.add_crossref_type(
             directivename=crossref_type,
             rolename=crossref_type,
+            indextemplate=f"pair: %s; {crossref_type}",
         )
 
 
