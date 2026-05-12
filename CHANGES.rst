@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.6 (unreleased)
+==================
+
+-   Add index templates for extension-defined cross-reference types so related
+    objects appear in generated Sphinx indexes.
+
 0.8.5 (2026-04-29)
 ==================
 
