@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.7 (unreleased)
+==================
+
+-   | Extended easy Intersphinx configuration to
+    | `pypug <https://packaging.python.org/en/latest/>`_
+
 0.8.6 (2026-05-12)
 ==================
 

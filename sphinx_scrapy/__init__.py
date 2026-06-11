@@ -32,6 +32,7 @@ INTERSPHINX_MAPPING = {
     "packaging": ("https://packaging.pypa.io/en/stable/", None),
     "parsel": ("https://parsel.readthedocs.io/en/latest/", None),
     "pydantic": ("https://pydantic.dev/docs/validation/latest/", None),
+    "pypug": ("https://packaging.python.org/en/latest/", None),
     "pytest": ("https://docs.pytest.org/en/stable/", None),
     "python": ("https://docs.python.org/3/", None),
     "python-scrapinghub": (
