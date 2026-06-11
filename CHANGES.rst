@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.7 (unreleased)
+0.8.7 (2026-06-11)
 ==================
 
 -   | Extended easy Intersphinx configuration to
