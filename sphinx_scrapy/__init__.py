@@ -41,6 +41,7 @@ INTERSPHINX_MAPPING = {
     ),
     "python-zyte-api": ("https://python-zyte-api.readthedocs.io/en/stable/", None),
     "scrapy": ("https://docs.scrapy.org/en/latest/", None),
+    "scrapy-lint": ("https://scrapy-lint.readthedocs.io/en/latest/", None),
     "scrapy-poet": ("https://scrapy-poet.readthedocs.io/en/stable/", None),
     "scrapy-spider-metadata": (
         "https://scrapy-spider-metadata.readthedocs.io/en/latest/",
@@ -319,7 +320,10 @@ def configure_sitemap(config: Config) -> None:
         config.html_baseurl = base_url
     if not config.html_baseurl.endswith("/"):
         config.html_baseurl = config.html_baseurl + "/"
-        logger.warning("html_baseurl should end with a slash; automatically fixed to %r", config.html_baseurl)
+        logger.warning(
+            "html_baseurl should end with a slash; automatically fixed to %r",
+            config.html_baseurl,
+        )
 
 
 def installed(names: set[str]) -> Generator[str, None, None]:

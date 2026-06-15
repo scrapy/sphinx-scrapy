@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.8 (unreleased)
+==================
+
+-   | Extended easy Intersphinx configuration to
+    | `scrapy-lint <https://scrapy-lint.readthedocs.io/en/latest/>`_
+
 0.8.7 (2026-06-11)
 ==================
 
