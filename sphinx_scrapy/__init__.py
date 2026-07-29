@@ -253,7 +253,7 @@ def setup(app: Sphinx) -> None:
     app.connect("config-inited", update_config)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6
-    for crossref_type in ("setting", "signal", "command", "reqmeta"):
+    for crossref_type in ("setting", "signal", "command", "reqmeta", "stat"):
         app.add_crossref_type(
             directivename=crossref_type,
             rolename=crossref_type,

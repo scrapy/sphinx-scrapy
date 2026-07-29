@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.9 (unreleased)
+==================
+
+-   Added the ``stat`` cross-reference type, for the ``.. stat::`` directive
+    and the ``:stat:`` role, to document and link to Scrapy stats.
+
 0.8.8 (2026-06-15)
 ==================
 

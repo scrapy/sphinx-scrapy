@@ -30,7 +30,7 @@ Features
     `additional packages <#intersphinx-packages>`_.
 
 -   Allows you to easily link to Scrapy settings, request metadata keys,
-    signals and commands:
+    signals, commands and stats:
 
     .. code-block:: rst
 
@@ -39,6 +39,7 @@ Features
         :reqmeta:`download_slot`
         :signal:`spider_opened`
         :command:`crawl`
+        :stat:`item_scraped_count`
 
 Setup
 =====
