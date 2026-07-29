@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.9 (unreleased)
+0.8.9 (2026-07-29)
 ==================
 
 -   Added the ``stat`` cross-reference type, for the ``.. stat::`` directive
