@@ -62,7 +62,7 @@ Setup
 
     .. code-block:: text
 
-        sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.9
+        sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.10
 
 #.  Add to ``docs/conf.py``:
 
@@ -112,7 +112,7 @@ Setup
 
         repos:
         - repo: https://github.com/scrapy/sphinx-scrapy
-            rev: 0.8.9
+            rev: 0.8.10
             hooks:
             - id: sphinx-scrapy
 
@@ -122,7 +122,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.9
+            sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@0.8.10
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.

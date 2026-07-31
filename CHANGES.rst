@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.10 (unreleased)
+0.8.10 (2026-07-31)
 ===================
 
 -   Fixed the ``docs`` tox environment failing to find its Python interpreter
