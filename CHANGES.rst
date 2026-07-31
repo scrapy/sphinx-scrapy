@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.8.10 (unreleased)
+===================
+
+-   Fixed the ``docs`` tox environment failing to find its Python interpreter
+    when `tox-uv <https://github.com/tox-dev/tox-uv>`_ is installed.
+
 0.8.9 (2026-07-29)
 ==================
 

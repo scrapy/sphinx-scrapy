@@ -27,7 +27,7 @@ def tox_add_core_config(core_conf: ConfigSet, state: State) -> None:
     state.conf.memory_seed_loaders["docs"].append(
         MemoryLoader(
             description="build documentation",
-            base_python=_python_executable(project_config.python_version),
+            base_python=[_python_executable(project_config.python_version)],
             deps=["-rdocs/requirements.txt"],
             extras=tuple(project_config.extras),
             commands=["sphinx-scrapy build"],
