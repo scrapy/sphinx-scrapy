@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.11 (unreleased)
+0.8.11 (2026-08-10)
 ===================
 
 -   Added the ``:gh:`` role, to link to GitHub issues and pull requests, of the
