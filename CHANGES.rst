@@ -2,6 +2,19 @@
 Release notes
 =============
 
+0.8.11 (unreleased)
+===================
+
+-   Added the ``:gh:`` role, to link to GitHub issues and pull requests, of the
+    current repository or of a different one.
+
+-   Fixed project data from ``pyproject.toml``, like the automatic
+    ``html_baseurl`` value, being read relative to the current working
+    directory instead of relative to ``conf.py``.
+
+-   Fixed the ``docs`` tox environment getting an invalid Python interpreter in
+    projects without a ``pyproject.toml``.
+
 0.8.10 (2026-07-31)
 ===================
 

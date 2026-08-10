@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from tox.config.loader.memory import MemoryLoader
 from tox.plugin import impl
 
-from .config import load_project_config
+from .config import LATEST_RTD_PYTHON_VERSION, load_project_config
 
 if TYPE_CHECKING:
     from tox.config.sets import ConfigSet
@@ -27,7 +27,11 @@ def tox_add_core_config(core_conf: ConfigSet, state: State) -> None:
     state.conf.memory_seed_loaders["docs"].append(
         MemoryLoader(
             description="build documentation",
-            base_python=[_python_executable(project_config.python_version)],
+            base_python=[
+                _python_executable(
+                    project_config.python_version or LATEST_RTD_PYTHON_VERSION
+                )
+            ],
             deps=["-rdocs/requirements.txt"],
             extras=tuple(project_config.extras),
             commands=["sphinx-scrapy build"],

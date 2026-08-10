@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 import re
+from functools import cache
 from logging import getLogger
+from pathlib import Path
 from typing import TYPE_CHECKING
+
+from docutils import nodes
+from sphinx.util.docutils import SphinxRole
 
 from .config import load_project_config, normalize_project_id
 
@@ -11,6 +16,8 @@ if TYPE_CHECKING:
 
     from sphinx.application import Sphinx
     from sphinx.config import Config
+
+    from .config import ProjectConfig
 
 logger = getLogger(__name__)
 
@@ -84,6 +91,58 @@ PACKAGE_OVERRIDES = {
     "twistedapi": "twisted",
     "zyte": False,
 }
+
+# Repositories that :gh: can target by name alone, e.g. :gh:`parsel#12`.
+_GITHUB_OWNERS = {
+    "scrapinghub": (
+        "andi",
+        "dateparser",
+        "extruct",
+        "price-parser",
+        "python-scrapinghub",
+        "scrapy-poet",
+        "scrapyrt",
+        "shub",
+        "spidermon",
+        "web-poet",
+    ),
+    "scrapy": (
+        "cssselect",
+        "form2request",
+        "itemadapter",
+        "itemloaders",
+        "parsel",
+        "protego",
+        "queuelib",
+        "scrapy",
+        "scrapy-lint",
+        "scrapyd",
+        "scrapyd-client",
+        "sphinx-scrapy",
+        "w3lib",
+    ),
+    "scrapy-plugins": (
+        "scrapy-playwright",
+        "scrapy-splash",
+        "scrapy-zyte-api",
+        "scrapy-zyte-smartproxy",
+    ),
+    "zytedata": (
+        "python-zyte-api",
+        "scrapy-spider-metadata",
+        "url-matcher",
+        "zyte-common-items",
+        "zyte-parsers",
+        "zyte-spider-templates",
+    ),
+}
+_GITHUB_REPO_OWNERS = {
+    repo: owner for owner, repos in _GITHUB_OWNERS.items() for repo in repos
+}
+
+_GITHUB_REFERENCE = re.compile(
+    r"(?:(?:(?P<owner>[\w.-]+)/)?(?P<repo>[\w.-]+)#)?(?P<number>\d+)"
+)
 
 
 COPY_AS_MARKDOWN_BUTTON_JS = """
@@ -248,6 +307,8 @@ def setup(app: Sphinx) -> None:
     ):
         app.setup_extension(extension)
 
+    app.add_role("gh", _GitHubRole())
+
     app.connect("builder-inited", add_copy_as_markdown_button)
     app.connect("builder-inited", set_better_defaults)
     app.connect("config-inited", update_config)
@@ -267,9 +328,55 @@ def add_copy_as_markdown_button(app: Sphinx) -> None:
     app.add_js_file(None, body=COPY_AS_MARKDOWN_BUTTON_JS)
 
 
+class _GitHubRole(SphinxRole):
+    """Link to a GitHub issue or pull request, given ``123`` for the current
+    repository, or ``repo#123`` or ``owner/repo#123`` for a different one.
+    """
+
+    def run(self) -> tuple[list[nodes.Node], list[nodes.system_message]]:
+        current_repo = _project_config(self.env.app.confdir).github_repo or ""
+        match = _GITHUB_REFERENCE.fullmatch(self.text.strip())
+        error = owner = repo = number = ""
+        if not match:
+            error = f"Unsupported GitHub reference: {self.text!r}"
+        else:
+            number = match["number"]
+            repo = match["repo"] or current_repo.partition("/")[2]
+            owner = (
+                match["owner"]
+                or _GITHUB_REPO_OWNERS.get(repo)
+                or current_repo.partition("/")[0]
+            )
+            if not (owner and repo):
+                error = (
+                    f"Could not determine the repository of {self.text!r}; use "
+                    f"the owner/repo#number syntax"
+                )
+            elif match["repo"] and f"{owner}/{repo}" == current_repo:
+                error = (
+                    f"{self.text!r} targets the current repository; use the "
+                    f"number alone"
+                )
+        if error:
+            message = self.inliner.reporter.error(error, line=self.lineno)
+            problem = self.inliner.problematic(self.rawtext, self.rawtext, message)
+            return [problem], [message]
+        label = (
+            f"#{number}" if f"{owner}/{repo}" == current_repo else f"{repo}#{number}"
+        )
+        # GitHub redirects the issue URL of a pull request to the pull request.
+        url = f"https://github.com/{owner}/{repo}/issues/{number}"
+        return [nodes.reference(self.rawtext, label, refuri=url)], []
+
+
+@cache
+def _project_config(confdir: str | Path) -> ProjectConfig:
+    return load_project_config(Path(confdir))
+
+
 def update_config(app: Sphinx, config: Config) -> None:
     configure_intersphinx(config)
-    configure_sitemap(config)
+    configure_sitemap(config, _project_config(app.confdir))
 
 
 def set_better_defaults(app: Sphinx) -> None:
@@ -303,10 +410,9 @@ def configure_intersphinx(config: Config) -> None:
         config.intersphinx_mapping[k] = INTERSPHINX_MAPPING[k]
 
 
-def configure_sitemap(config: Config) -> None:
+def configure_sitemap(config: Config, project_config: ProjectConfig) -> None:
     if not config.html_baseurl:
         package: str | None = None
-        project_config = load_project_config()
         if project_config.project_id:
             package = normalize_project_id(project_config.project_id)
         elif hasattr(config, "project"):

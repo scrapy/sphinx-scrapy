@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-from collections.abc import Callable
 import concurrent.futures
 import re
 import shutil
@@ -19,6 +18,7 @@ from . import INTERSPHINX_MAPPING
 from .config import LATEST_RTD_PYTHON_VERSION, load_project_config, normalize_project_id
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
     from pathlib import Path
 
 
@@ -48,7 +48,7 @@ def _project_docs_base_url(project_id: str | None) -> str | None:
 
 
 def _split_wrapped_markdown_target(target: str) -> tuple[str, str, str]:
-    if len(target) >= 2 and target.startswith("<") and target.endswith(">"):
+    if target.startswith("<") and target.endswith(">"):
         return "<", target[1:-1], ">"
     return "", target, ""
 
@@ -69,15 +69,12 @@ def _rewrite_markdown_links(
 
         title = match.group("title") or ""
         return (
-            f"{match.group('prefix')}"
-            f"{rewritten_target}"
-            f"{title}"
-            f"{match.group('suffix')}"
+            f"{match.group('prefix')}{rewritten_target}{title}{match.group('suffix')}"
         )
 
     for line in content.splitlines(keepends=True):
         stripped = line.lstrip()
-        if stripped.startswith("```") or stripped.startswith("~~~"):
+        if stripped.startswith(("```", "~~~")):
             marker = stripped[0]
             if not in_fence:
                 in_fence = True
@@ -102,8 +99,8 @@ def _rewrite_llms_link_target(
     docs_host: str,
     docs_path_prefix: str,
 ) -> str:
-    wrapper_prefix, wrapped_target, wrapper_suffix = (
-        _split_wrapped_markdown_target(target)
+    wrapper_prefix, wrapped_target, wrapper_suffix = _split_wrapped_markdown_target(
+        target
     )
     parts = urlsplit(wrapped_target)
 
@@ -174,7 +171,8 @@ def _supports_markdown(base_url: str) -> bool:
         request = Request(probe_url, headers=headers, method=method)  # noqa: S310
         try:
             with urlopen(request, timeout=5) as response:  # noqa: S310
-                return HTTPStatus.OK <= response.status < HTTPStatus.BAD_REQUEST
+                status = int(response.status)
+                return HTTPStatus.OK <= status < HTTPStatus.BAD_REQUEST
         except HTTPError as error:
             if method == "HEAD" and error.code in {
                 HTTPStatus.METHOD_NOT_ALLOWED,
@@ -187,7 +185,9 @@ def _supports_markdown(base_url: str) -> bool:
     return False
 
 
-def _rewrite_url_to_markdown(url: str, enabled_base_urls: set[str], base_urls: tuple[str, ...]) -> str:
+def _rewrite_url_to_markdown(
+    url: str, enabled_base_urls: set[str], base_urls: tuple[str, ...]
+) -> str:
     base_url = _matching_base_url(url, base_urls)
     if not base_url or base_url not in enabled_base_urls:
         return url
@@ -198,7 +198,9 @@ def _rewrite_url_to_markdown(url: str, enabled_base_urls: set[str], base_urls: t
         return url
     new_path = f"{path[:-5]}.md"
 
-    return urlunsplit((parts.scheme, parts.netloc, new_path, parts.query, parts.fragment))
+    return urlunsplit(
+        (parts.scheme, parts.netloc, new_path, parts.query, parts.fragment)
+    )
 
 
 def _rewrite_intersphinx_links_to_markdown(output_dir: Path) -> None:
@@ -232,9 +234,7 @@ def _rewrite_intersphinx_links_to_markdown(output_dir: Path) -> None:
             for base_url in candidate_base_urls
         }
         enabled_base_urls = {
-            base_url
-            for base_url, future in availability.items()
-            if future.result()
+            base_url for base_url, future in availability.items() if future.result()
         }
 
     if not enabled_base_urls:
@@ -258,8 +258,10 @@ def _builder_settings(builder: str) -> list[str]:
         return ["-D", "llms_txt_uri_template={docname}.md"]
     if builder == "singlemarkdown":
         return [
-            "-D", "llms_txt_uri_template={docname}.md",
-            "-D", "singlemarkdown_flavor=llm",
+            "-D",
+            "llms_txt_uri_template={docname}.md",
+            "-D",
+            "singlemarkdown_flavor=llm",
         ]
     return []
 
@@ -309,7 +311,9 @@ def build_docs() -> int:
 
     shutil.copytree(sphinx_build_dir / "html", all_dir, dirs_exist_ok=True)
     shutil.copytree(sphinx_build_dir / "markdown", all_dir, dirs_exist_ok=True)
-    shutil.copy2(sphinx_build_dir / "singlemarkdown" / "index.md", all_dir / "llms-full.txt")
+    shutil.copy2(
+        sphinx_build_dir / "singlemarkdown" / "index.md", all_dir / "llms-full.txt"
+    )
     _rewrite_intersphinx_links_to_markdown(all_dir)
     _rewrite_llms_links_to_docs_path(all_dir, docs_base_url)
 
@@ -321,7 +325,7 @@ def update_rtd_config() -> int:
     config = load_project_config()
 
     try:
-        config_python_version = Version(config.python_version)
+        config_python_version = Version(str(config.python_version))
     except InvalidVersion:
         print(
             f"Invalid Python version in pyproject.toml: {config.python_version}",

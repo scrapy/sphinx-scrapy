@@ -41,6 +41,20 @@ Features
         :command:`crawl`
         :stat:`item_scraped_count`
 
+-   Allows you to easily link to GitHub issues and pull requests:
+
+    .. code-block:: rst
+
+        :gh:`1908`
+        :gh:`parsel#12`
+        :gh:`sphinx-doc/sphinx#13000`
+
+    They render as ``#1908``, ``parsel#12`` and ``sphinx#13000``. Use the number
+    alone for the current repository, which comes from the GitHub URLs in
+    ``pyproject.toml``. For a different repository, its name alone is enough if
+    it is a known repository of the Scrapy ecosystem or it belongs to the same
+    owner as the current repository.
+
 Setup
 =====
 
@@ -51,7 +65,7 @@ Setup
 
         [tool.sphinx-scrapy]
         python-version = "3.14"
-    
+
     It must be `supported by Read the Docs
     <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`_.
 

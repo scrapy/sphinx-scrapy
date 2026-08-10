@@ -9,6 +9,10 @@ repos:
   rev: v1.16.0
   hooks:
   - id: mypy
+    additional_dependencies:
+    - sphinx
+    - tox
+    - types-docutils
 - repo: https://github.com/adamchainz/blacken-docs
   rev: 1.19.1
   hooks:
@@ -16,6 +20,20 @@ repos:
     additional_dependencies:
     - black==25.1.0
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v5.0.0
+  rev: v6.0.0
   hooks:
+  - id: end-of-file-fixer
   - id: trailing-whitespace
+- repo: https://github.com/sphinx-contrib/sphinx-lint
+  rev: v1.0.2
+  hooks:
+  - id: sphinx-lint
+- repo: https://github.com/rhysd/actionlint
+  rev: v1.7.12
+  hooks:
+  - id: actionlint
+- repo: https://github.com/zizmorcore/zizmor-pre-commit
+  rev: v1.29.0
+  hooks:
+  - id: zizmor
+    args: [--no-progress, --fix]

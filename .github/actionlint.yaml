@@ -1,0 +1,6 @@
+paths:
+  .github/workflows/publish.yml:
+    ignore:
+    # The job is disabled on purpose while the package cannot be published to
+    # PyPI, see the README.
+    - 'constant expression "false" in condition'
