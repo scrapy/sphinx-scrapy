@@ -2,6 +2,14 @@
 Release notes
 =============
 
+0.8.12 (unreleased)
+===================
+
+-   | Extended easy Intersphinx configuration to
+    | `platformdirs <https://platformdirs.readthedocs.io/en/latest/>`_
+
+-   Added an explicit dependency on ``docutils``.
+
 0.8.11 (2026-08-10)
 ===================
 
