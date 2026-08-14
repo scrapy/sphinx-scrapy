@@ -190,6 +190,7 @@ Intersphinx packages
 | `niquests <https://niquests.readthedocs.io/en/latest/>`_
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `parsel <https://parsel.readthedocs.io/en/latest/>`_
+| `platformdirs <https://platformdirs.readthedocs.io/en/latest/>`_
 | `pydantic <https://docs.pydantic.dev/latest/>`_
 | `pypug <https://packaging.python.org/en/latest/>`_
 | `pytest <https://docs.pytest.org/en/stable/>`_
