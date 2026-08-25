@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.8.13 (unreleased)
+0.8.13 (2026-08-25)
 ===================
 
 -   ``llms-full.txt`` now includes a ``Source:`` line before each page's
