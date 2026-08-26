@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.9.0 (unreleased)
+0.9.0 (2026-08-26)
 ==================
 
 -   HTML pages now include an ``<link rel="alternate" type="text/markdown">``
