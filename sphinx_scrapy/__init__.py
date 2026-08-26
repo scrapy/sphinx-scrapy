@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+import posixpath
 import re
 from functools import cache
 from logging import getLogger
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from docutils import nodes
 from sphinx.util.docutils import SphinxRole
+from sphinx.util.osutil import relative_uri
 
 from .config import load_project_config, normalize_project_id
 
@@ -313,6 +315,7 @@ def setup(app: Sphinx) -> None:
     app.connect("builder-inited", add_copy_as_markdown_button)
     app.connect("builder-inited", set_better_defaults)
     app.connect("config-inited", update_config)
+    app.connect("html-page-context", add_markdown_alternate_link)
 
     # https://github.com/scrapy/scrapy/blob/dba37674e6eaa6c2030c8eb35ebf8127cd488062/docs/_ext/scrapydocs.py#L90C16-L110C6
     for crossref_type in ("setting", "signal", "command", "reqmeta", "stat"):
@@ -327,6 +330,23 @@ def add_copy_as_markdown_button(app: Sphinx) -> None:
     if app.builder.format != "html":
         return
     app.add_js_file(None, body=COPY_AS_MARKDOWN_BUTTON_JS)
+
+
+def add_markdown_alternate_link(
+    app: Sphinx,
+    pagename: str,
+    templatename: str,
+    context: dict[str, Any],
+    doctree: nodes.document | None,
+) -> None:
+    if app.builder.format != "html" or pagename not in app.env.found_docs:
+        return
+    html_uri = app.builder.get_target_uri(pagename)
+    md_uri = f"{posixpath.splitext(html_uri)[0]}.md"
+    href = relative_uri(html_uri, md_uri)
+    context["metatags"] = context.get("metatags", "") + (
+        f'\n<link rel="alternate" type="text/markdown" href="{href}">'
+    )
 
 
 class _GitHubRole(SphinxRole):

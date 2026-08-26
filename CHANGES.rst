@@ -2,6 +2,12 @@
 Release notes
 =============
 
+0.9.0 (unreleased)
+==================
+
+-   HTML pages now include an ``<link rel="alternate" type="text/markdown">``
+    tag pointing to their ``.md`` counterpart.
+
 0.8.13 (2026-08-25)
 ===================
 
