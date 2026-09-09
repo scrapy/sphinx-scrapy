@@ -2,19 +2,25 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import json
 import re
 import shutil
 import sys
 from http import HTTPStatus
 from typing import TYPE_CHECKING
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import unquote, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
 from packaging.version import InvalidVersion, Version
 from sphinx.cmd.build import main as sphinx_build_main
 
-from . import INTERSPHINX_MAPPING
+from . import (
+    INTERSPHINX_MAPPING,
+    MARKDOWN_LINKS_BASE_URLS_PLACEHOLDER,
+    MARKDOWN_LINKS_JS,
+    MARKDOWN_LINKS_JS_FILENAME,
+)
 from .config import LATEST_RTD_PYTHON_VERSION, load_project_config, normalize_project_id
 
 if TYPE_CHECKING:
@@ -23,6 +29,9 @@ if TYPE_CHECKING:
 
 
 URL_PATTERN = re.compile(r"https?://[^\s<>()\[\]{}\"']+")
+HTML_ANCHOR_HREF_PATTERN = re.compile(
+    r'(?P<prefix><a\s[^>]*?href=")(?P<href>[^"]+)(?P<suffix>")'
+)
 MARKDOWN_LINK_PATTERN = re.compile(
     r"(?P<prefix>!?\[[^\]]*\]\()"
     r"(?P<target>[^)\s]+)"
@@ -148,8 +157,13 @@ def _rewrite_llms_links_to_docs_path(
         llms_path.write_text(rewritten, encoding="utf-8")
 
 
-def _iter_markdown_outputs(output_dir: Path) -> list[Path]:
-    files = sorted(output_dir.rglob("*.md"))
+def _iter_link_outputs(output_dir: Path) -> list[Path]:
+    files = sorted(
+        path
+        for pattern in ("*.md", "*.html")
+        for path in output_dir.rglob(pattern)
+        if path.is_file()
+    )
     for filename in ("llms.txt", "llms-full.txt"):
         path = output_dir / filename
         if path.is_file():
@@ -203,8 +217,10 @@ def _rewrite_url_to_markdown(
     )
 
 
-def _rewrite_intersphinx_links_to_markdown(output_dir: Path) -> None:
-    target_files = _iter_markdown_outputs(output_dir)
+def _rewrite_intersphinx_links_to_markdown(
+    output_dir: Path, docs_base_url: str | None
+) -> None:
+    target_files = _iter_link_outputs(output_dir)
     if not target_files:
         return
 
@@ -223,6 +239,9 @@ def _rewrite_intersphinx_links_to_markdown(output_dir: Path) -> None:
             if base_url is not None:
                 candidate_base_urls.add(base_url)
 
+    # Absolute links to the project's own pages, such as canonical URLs,
+    # must keep pointing at the HTML.
+    candidate_base_urls.discard(docs_base_url or "")
     if not candidate_base_urls:
         return
 
@@ -251,6 +270,35 @@ def _rewrite_intersphinx_links_to_markdown(output_dir: Path) -> None:
         )
         if rewritten != content:
             file.write_text(rewritten, encoding="utf-8")
+
+    (output_dir / "_static" / MARKDOWN_LINKS_JS_FILENAME).write_text(
+        MARKDOWN_LINKS_JS.replace(
+            MARKDOWN_LINKS_BASE_URLS_PLACEHOLDER,
+            f"var BASE_URLS = {json.dumps(sorted(enabled_base_urls))};",
+        ),
+        encoding="utf-8",
+    )
+
+
+def _rewrite_internal_link_to_markdown(href: str, html_file: Path) -> str:
+    parts = urlsplit(href)
+    if parts.scheme or parts.netloc or not parts.path.endswith(".html"):
+        return href
+    target = html_file.parent / unquote(parts.path)
+    if not target.with_suffix(".md").is_file():
+        return href
+    return urlunsplit(("", "", f"{parts.path[:-5]}.md", parts.query, parts.fragment))
+
+
+def _rewrite_internal_links_to_markdown(html_file: Path) -> None:
+    def replacement(match: re.Match[str]) -> str:
+        href = _rewrite_internal_link_to_markdown(match.group("href"), html_file)
+        return f"{match.group('prefix')}{href}{match.group('suffix')}"
+
+    content = html_file.read_text(encoding="utf-8")
+    rewritten = HTML_ANCHOR_HREF_PATTERN.sub(replacement, content)
+    if rewritten != content:
+        html_file.write_text(rewritten, encoding="utf-8")
 
 
 def _builder_settings(builder: str) -> list[str]:
@@ -314,7 +362,10 @@ def build_docs() -> int:
     shutil.copy2(
         sphinx_build_dir / "singlemarkdown" / "index.md", all_dir / "llms-full.txt"
     )
-    _rewrite_intersphinx_links_to_markdown(all_dir)
+    for html_file in all_dir.rglob("*.html"):
+        if html_file.is_file():
+            _rewrite_internal_links_to_markdown(html_file)
+    _rewrite_intersphinx_links_to_markdown(all_dir, docs_base_url)
     _rewrite_llms_links_to_docs_path(all_dir, docs_base_url)
 
     print("\nDocumentation generated in docs/_build/all.")

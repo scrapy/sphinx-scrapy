@@ -288,6 +288,51 @@ COPY_AS_MARKDOWN_BUTTON_JS = """
 })();
 """
 
+# The sphinx-scrapy CLI rewrites internal and intersphinx links to point at
+# the Markdown version of the target page, so that LLMs reading the HTML
+# follow them there, and rewrites this script with the base URLs of the
+# intersphinx links it rewrote. Browsers run the script and land on the HTML
+# version instead. It lives in its own static file because LLMs do not fetch
+# external scripts, while a script inline in the page would let them work out
+# the HTML URL.
+MARKDOWN_LINKS_JS_FILENAME = "sphinx-scrapy-md-links.js"
+MARKDOWN_LINKS_BASE_URLS_PLACEHOLDER = "var BASE_URLS = [];"
+MARKDOWN_LINKS_JS = (
+    "\n(function () {\n    "
+    + MARKDOWN_LINKS_BASE_URLS_PLACEHOLDER
+    + """
+
+    function isDocsLink(href) {
+        var url;
+        try {
+            url = new URL(href, window.location.href);
+        } catch (_error) {
+            return false;
+        }
+        return url.origin === window.location.origin || BASE_URLS.some(
+            function (base) { return url.href.startsWith(base); }
+        );
+    }
+
+    function fixLinks() {
+        document.querySelectorAll('a[href]').forEach(function (link) {
+            var href = link.getAttribute('href');
+            var fixed = href.replace(/\\.md(?=$|[#?])/, '.html');
+            if (fixed !== href && isDocsLink(href)) {
+                link.setAttribute('href', fixed);
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixLinks);
+    } else {
+        fixLinks();
+    }
+})();
+"""
+)
+
 
 def setup(app: Sphinx) -> None:
     app.add_config_value(
@@ -313,6 +358,7 @@ def setup(app: Sphinx) -> None:
     app.add_role("gh", _GitHubRole())
 
     app.connect("builder-inited", add_copy_as_markdown_button)
+    app.connect("build-finished", write_markdown_links_js)
     app.connect("builder-inited", set_better_defaults)
     app.connect("config-inited", update_config)
     app.connect("html-page-context", add_markdown_alternate_link)
@@ -330,6 +376,15 @@ def add_copy_as_markdown_button(app: Sphinx) -> None:
     if app.builder.format != "html":
         return
     app.add_js_file(None, body=COPY_AS_MARKDOWN_BUTTON_JS)
+    app.add_js_file(MARKDOWN_LINKS_JS_FILENAME)
+
+
+def write_markdown_links_js(app: Sphinx, exception: Exception | None) -> None:
+    if app.builder.format != "html" or exception is not None:
+        return
+    Path(app.outdir, "_static", MARKDOWN_LINKS_JS_FILENAME).write_text(
+        MARKDOWN_LINKS_JS, encoding="utf-8"
+    )
 
 
 def add_markdown_alternate_link(
