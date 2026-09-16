@@ -9,7 +9,7 @@ description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
     "docutils",
     "packaging",
-    "sphinx",
+    "sphinx>=8.0.0",
     "sphinx-copybutton",
     "sphinx-llms-txt @ git+https://github.com/zytedata/sphinx-llms-txt.git@5e8866cb0cc249aa2017ad9050b3b83a7ca16f69",
     "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@bb3121247d5e179df44e97214828f48b80b78238",

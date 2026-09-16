@@ -266,10 +266,13 @@ def _builder_settings(builder: str) -> list[str]:
     return []
 
 
-def _run_builder(builder: str, source_dir: Path, build_dir: Path) -> None:
+def _run_builder(
+    builder: str, source_dir: Path, build_dir: Path, fail_on_warning: bool
+) -> None:
     args = [
         "-b",
         builder,
+        *(["-W"] if fail_on_warning else []),
         *_builder_settings(builder),
         str(source_dir),
         str(build_dir / builder),
@@ -300,11 +303,19 @@ def build_docs() -> int:
                 builder,
                 docs_dir,
                 sphinx_build_dir,
+                config.fail_on_warning,
             )
             for builder in builders
         ]
-        for future in concurrent.futures.as_completed(futures):
-            future.result()
+        failures = [
+            error for future in futures if (error := future.exception()) is not None
+        ]
+        for failure in failures:
+            if not isinstance(failure, RuntimeError):
+                raise failure
+            print(failure, file=sys.stderr)
+        if failures:
+            return 1
 
     all_dir = sphinx_build_dir / "all"
     all_dir.mkdir(parents=True, exist_ok=True)

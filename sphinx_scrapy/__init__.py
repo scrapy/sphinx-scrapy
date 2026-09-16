@@ -410,6 +410,10 @@ def set_better_defaults(app: Sphinx) -> None:
         if key in manual_conf:
             continue
         setattr(app.config, key, value)
+    if app.builder.name == "singlemarkdown":
+        # Documents that llms_txt_exclude leaves out of llms-full.txt are still
+        # part of the toctree.
+        app.config.suppress_warnings = [*app.config.suppress_warnings, "toc.excluded"]
 
 
 def configure_intersphinx(config: Config) -> None:

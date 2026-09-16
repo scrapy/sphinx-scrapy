@@ -25,6 +25,7 @@ class ProjectConfig:
     extras: set[str] = field(default_factory=set)
     project_id: str | None = None
     github_repo: str | None = None
+    fail_on_warning: bool = True
 
 
 def find_project_root(start: Path | None = None) -> Path:
@@ -78,6 +79,7 @@ def load_project_config(start: Path | None = None) -> ProjectConfig:
     tool_data = pyproject_data.get("tool", {})
     scrapy_data = tool_data.get("sphinx-scrapy", {})
     python_version = scrapy_data.get("python-version", LATEST_RTD_PYTHON_VERSION)
+    fail_on_warning = bool(scrapy_data.get("fail-on-warning", True))
     extras = get_extras(pyproject_data)
     raw_project_id = pyproject_data.get("project", {}).get("name")
     project_id = None
@@ -91,4 +93,5 @@ def load_project_config(start: Path | None = None) -> ProjectConfig:
         extras=extras,
         project_id=project_id,
         github_repo=_get_github_repo(pyproject_data),
+        fail_on_warning=fail_on_warning,
     )
