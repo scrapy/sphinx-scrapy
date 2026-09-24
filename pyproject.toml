@@ -9,7 +9,7 @@ description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
     "docutils",
     "packaging",
-    "sphinx",
+    "sphinx>=8.0.0",
     "sphinx-copybutton",
     "sphinx-llm-friendly>=0.2.0",
     "sphinx-sitemap",

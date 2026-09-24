@@ -23,6 +23,16 @@ Features
 
 -   Generates a `Read the Docs <https://readthedocs.org/>`_ configuration.
 
+-   Makes documentation builds fail on Sphinx warnings. While you fix existing
+    warnings, you can either `suppress them by type
+    <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-suppress_warnings>`_
+    in ``docs/conf.py``, or allow all of them in ``pyproject.toml``:
+
+    .. code-block:: toml
+
+        [tool.sphinx-scrapy]
+        fail-on-warning = false
+
 -   Enables `commonly-used Sphinx extensions <#sphinx-extensions>`_.
 
 -   Configures `sphinx.ext.intersphinx`_ for `Python
