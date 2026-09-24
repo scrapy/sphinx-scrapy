@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from tox.config.loader.memory import MemoryLoader
+from tox.config.types import Command
 from tox.plugin import impl
 
 from .config import LATEST_RTD_PYTHON_VERSION, load_project_config
@@ -34,6 +35,8 @@ def tox_add_core_config(core_conf: ConfigSet, state: State) -> None:
             ],
             deps=["-rdocs/requirements.txt"],
             extras=tuple(project_config.extras),
-            commands=["sphinx-scrapy build"],
+            commands=[
+                Command(["sphinx-scrapy", "build", *(state.conf.pos_args(None) or ())])
+            ],
         )
     )

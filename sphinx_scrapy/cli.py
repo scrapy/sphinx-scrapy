@@ -2,22 +2,34 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 from packaging.version import InvalidVersion, Version
-from sphinx_llm_friendly import build
+from sphinx.cmd.build import main as sphinx_build
 
 from .config import LATEST_RTD_PYTHON_VERSION, load_project_config
 
 
-def build_docs() -> int:
+def build_docs(output_dir: Path | None) -> int:
     config = load_project_config()
     docs_dir = config.root / "docs"
     if not docs_dir.is_dir():
         print("docs directory not found", file=sys.stderr)
         return 1
-    output_dir = build(docs_dir, docs_dir / "_build")
-    print(f"\nDocumentation generated in {output_dir.relative_to(config.root)}.")
-    return 0
+    build_dir = docs_dir / "_build"
+    args = [
+        "-b",
+        "html",
+        "-d",
+        str(build_dir / "doctrees"),
+        "-j",
+        "auto",
+        str(docs_dir),
+        str(output_dir or build_dir / "html"),
+    ]
+    if config.fail_on_warning:
+        args += ["-W", "--keep-going"]
+    return sphinx_build(args)
 
 
 def update_rtd_config() -> int:
@@ -52,9 +64,7 @@ def update_rtd_config() -> int:
                 f'    python: "{config.python_version}"',
                 "  commands:",
                 "    - pip install tox",
-                "    - tox -e docs",
-                "    - mkdir -p $READTHEDOCS_OUTPUT/html",
-                "    - cp -a docs/_build/all/. $READTHEDOCS_OUTPUT/html/",
+                "    - tox -e docs -- $READTHEDOCS_OUTPUT/html",
                 "",
             ]
         ),
@@ -67,7 +77,8 @@ def update_rtd_config() -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="sphinx-scrapy")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("build")
+    build_parser = subparsers.add_parser("build")
+    build_parser.add_argument("output_dir", nargs="?", type=Path)
     subparsers.add_parser("update-rtd-config")
     return parser
 
@@ -76,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.command == "build":
-        return build_docs()
+        return build_docs(args.output_dir)
     if args.command == "update-rtd-config":
         return update_rtd_config()
     parser.error(f"Unknown command: {args.command}")

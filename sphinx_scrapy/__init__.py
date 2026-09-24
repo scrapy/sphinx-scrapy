@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
     from sphinx.application import Sphinx
     from sphinx.config import Config
+    from sphinx.util.typing import ExtensionMetadata
 
     from .config import ProjectConfig
 
@@ -146,7 +147,7 @@ _GITHUB_REFERENCE = re.compile(
 )
 
 
-def setup(app: Sphinx) -> None:
+def setup(app: Sphinx) -> ExtensionMetadata:
     app.add_config_value(
         "scrapy_intersphinx_enable", [], "env", types=frozenset({list})
     )
@@ -179,6 +180,8 @@ def setup(app: Sphinx) -> None:
             rolename=crossref_type,
             indextemplate=f"pair: %s; {crossref_type}",
         )
+
+    return {"parallel_read_safe": True}
 
 
 class _GitHubRole(SphinxRole):
