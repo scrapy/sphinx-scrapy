@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.12.0 (unreleased)
+0.12.0 (2026-09-24)
 ===================
 
 -   The ``sphinx-scrapy`` pre-commit hook now also updates the sphinx-scrapy
