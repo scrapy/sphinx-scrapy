@@ -2,6 +2,17 @@
 Release notes
 =============
 
+0.12.0 (unreleased)
+===================
+
+-   The ``sphinx-scrapy`` pre-commit hook now also updates the sphinx-scrapy
+    pins in :file:`tox.ini` and :file:`docs/requirements.in` to match its
+    ``rev``, so upgrading sphinx-scrapy only takes changing that ``rev``.
+
+    After :file:`docs/requirements.in` changes, recompile
+    :file:`docs/requirements.txt` with ``uv pip compile requirements.in -o
+    requirements.txt`` from the :file:`docs` directory.
+
 0.11.0 (2026-09-24)
 ===================
 
