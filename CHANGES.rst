@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.10.0 (unreleased)
+0.10.0 (2026-09-24)
 ===================
 
 -   Replaced the Git-based sphinx-llms-txt and sphinx-markdown-builder
