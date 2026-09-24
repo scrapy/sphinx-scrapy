@@ -4,15 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sphinx-scrapy"
-version = "0.9.0"
+version = "0.10.0"
 description = "Sphinx extension for documentation in the Scrapy ecosystem"
 dependencies = [
     "docutils",
     "packaging",
     "sphinx>=8.0.0",
     "sphinx-copybutton",
-    "sphinx-llms-txt @ git+https://github.com/zytedata/sphinx-llms-txt.git@5e8866cb0cc249aa2017ad9050b3b83a7ca16f69",
-    "sphinx-markdown-builder @ git+https://github.com/zytedata/sphinx-markdown-builder.git@bb3121247d5e179df44e97214828f48b80b78238",
+    "sphinx-llm-friendly>=0.2.0",
     "sphinx-sitemap",
     "tomli; python_version < '3.11'",
 ]
@@ -53,14 +52,11 @@ Tracker = "https://github.com/scrapy/sphinx-scrapy/issues"
 [project.optional-dependencies]
 tox = ["tox>=4.29.0"]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
 [tool.mypy]
 strict = true
 
 [tool.bumpversion]
-current_version = "0.9.0"
+current_version = "0.10.0"
 commit = true
 tag = true
 tag_name = "{new_version}"
@@ -78,13 +74,13 @@ replace = "rev: {new_version}"
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
-search = "sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@{current_version}"
-replace = "sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@{new_version}"
+search = "sphinx-scrapy=={current_version}"
+replace = "sphinx-scrapy=={new_version}"
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
-search = "sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@{current_version}"
-replace = "sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@{new_version}"
+search = "sphinx-scrapy[tox]=={current_version}"
+replace = "sphinx-scrapy[tox]=={new_version}"
 
 [tool.ruff.lint]
 extend-select = [

@@ -81,12 +81,9 @@ Setup
 
 #.  Add to ``docs/requirements.txt``:
 
-    Install from Git, because this project currently depends on Git-based
-    packages and cannot be published to PyPI:
-
     .. code-block:: text
 
-        sphinx-scrapy @ git+https://github.com/scrapy/sphinx-scrapy.git@0.9.0
+        sphinx-scrapy==0.10.0
 
 #.  Add to ``docs/conf.py``:
 
@@ -136,7 +133,7 @@ Setup
 
         repos:
         - repo: https://github.com/scrapy/sphinx-scrapy
-            rev: 0.9.0
+            rev: 0.10.0
             hooks:
             - id: sphinx-scrapy
 
@@ -146,7 +143,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox] @ git+https://github.com/scrapy/sphinx-scrapy.git@0.9.0
+            sphinx-scrapy[tox]==0.10.0
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.
@@ -175,7 +172,8 @@ The following Sphinx extensions are automatically enabled when you enable
 
 -   `sphinx_copybutton <https://sphinx-copybutton.readthedocs.io/en/latest/>`_
 
--   `sphinx_llms_txt <https://sphinx-llms-txt.readthedocs.io/en/latest/>`_
+-   `sphinx-llm-friendly <https://github.com/scrapy/sphinx-llm-friendly>`_,
+    which documents the ``llm_friendly_*`` settings
 
 .. _intersphinx-packages:
 

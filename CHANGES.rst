@@ -2,6 +2,32 @@
 Release notes
 =============
 
+0.10.0 (2026-09-24)
+===================
+
+-   Replaced the Git-based sphinx-llms-txt and sphinx-markdown-builder
+    dependencies with `sphinx-llm-friendly
+    <https://github.com/scrapy/sphinx-llm-friendly>`_, so sphinx-scrapy can be
+    installed from PyPI again, e.g. ``sphinx-scrapy==0.10.0`` in
+    :file:`docs/requirements.txt` and ``sphinx-scrapy[tox]==0.10.0`` in the
+    ``requires`` of :file:`tox.ini`.
+
+    This is backward-incompatible. To update:
+
+    -   Rename ``llms_txt_*`` settings to their ``llm_friendly_*``
+        counterparts, or drop them where the new defaults cover them, and drop
+        ``markdown_flavor``.
+
+    -   Remove ``"sphinx_llms_txt"`` from ``extensions``.
+
+    -   In ``app.add_node()`` calls, rename the ``markdown=`` and
+        ``singlemarkdown=`` handlers to ``llm_markdown=`` and
+        ``llm_singlemarkdown=``.
+
+    -   Replace ``exclude_patterns`` workarounds that check the builder name
+        with ``llm_friendly_exclude`` or
+        ``llm_friendly_llms_full_txt_exclude``.
+
 0.9.0 (2026-08-26)
 ==================
 
