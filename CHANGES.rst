@@ -2,6 +2,35 @@
 Release notes
 =============
 
+0.11.0 (unreleased)
+===================
+
+-   Documentation builds now fail on Sphinx warnings.
+
+    While you fix existing warnings, you can `suppress them by type
+    <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-suppress_warnings>`_
+    in :file:`docs/conf.py`, or allow all of them in :file:`pyproject.toml`
+    with ``fail-on-warning = false`` under ``[tool.sphinx-scrapy]``.
+
+-   Documentation is now built with a regular parallel ``sphinx-build -b
+    html``, which writes the Markdown pages, ``llms.txt`` and
+    ``llms-full.txt`` next to the HTML pages, in :file:`docs/_build/html`
+    instead of :file:`docs/_build/all`.
+
+    ``sphinx-scrapy build`` and ``tox -e docs`` accept an optional output
+    directory, e.g. ``tox -e docs -- $READTHEDOCS_OUTPUT/html``.
+
+    This is backward-incompatible. To update:
+
+    -   Run ``sphinx-scrapy update-rtd-config`` to regenerate
+        :file:`.readthedocs.yml`.
+
+    -   In ``app.add_node()`` calls, drop ``llm_singlemarkdown=`` handlers;
+        ``llm_markdown=`` handlers cover all Markdown output.
+
+-   Sphinx 8.0.0 or higher is now required, and sphinx-llm-friendly 0.3.0 or
+    higher.
+
 0.10.0 (2026-09-24)
 ===================
 
