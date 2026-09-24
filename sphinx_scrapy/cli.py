@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
+from importlib.metadata import version
 from pathlib import Path
 
 from packaging.version import InvalidVersion, Version
@@ -71,6 +73,22 @@ def update_rtd_config() -> int:
         encoding="utf-8",
     )
     print("Updated .readthedocs.yml")
+
+    pin = rf"\g<1>{version('sphinx-scrapy')}"
+    for path in ("tox.ini", "docs/requirements.in"):
+        file = config.root / path
+        if not file.is_file():
+            continue
+        text = file.read_text(encoding="utf-8")
+        new_text = re.sub(r"(sphinx-scrapy(?:\[tox\])?==)\S+", pin, text)
+        if new_text != text:
+            file.write_text(new_text, encoding="utf-8")
+            print(f"Updated {path}")
+            if path == "docs/requirements.in":
+                print(
+                    "Run `uv pip compile requirements.in -o requirements.txt` "
+                    "from docs/"
+                )
     return 0
 
 

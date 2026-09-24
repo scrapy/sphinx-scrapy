@@ -23,6 +23,9 @@ Features
 
 -   Generates a `Read the Docs <https://readthedocs.org/>`_ configuration.
 
+-   Keeps the sphinx-scrapy pins of ``tox.ini`` and ``docs/requirements.in``
+    in sync with the pre-commit ``rev``.
+
 -   Makes documentation builds fail on Sphinx warnings. While you fix existing
     warnings, you can either `suppress them by type
     <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-suppress_warnings>`_
