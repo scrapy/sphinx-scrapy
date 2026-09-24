@@ -83,7 +83,7 @@ Setup
 
     .. code-block:: text
 
-        sphinx-scrapy==0.10.0
+        sphinx-scrapy==0.11.0
 
 #.  Add to ``docs/conf.py``:
 
@@ -133,7 +133,7 @@ Setup
 
         repos:
         - repo: https://github.com/scrapy/sphinx-scrapy
-            rev: 0.10.0
+            rev: 0.11.0
             hooks:
             - id: sphinx-scrapy
 
@@ -143,7 +143,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox]==0.10.0
+            sphinx-scrapy[tox]==0.11.0
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.
