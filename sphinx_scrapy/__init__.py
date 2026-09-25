@@ -163,8 +163,10 @@ def setup(app: Sphinx) -> ExtensionMetadata:
         "sphinx.ext.intersphinx",
         "sphinx.ext.viewcode",
         "sphinx_copybutton",
+        "sphinx_design",
         "sphinx_llm_friendly",
         "sphinx_sitemap",
+        "sphinxcontrib.youtube",
     ):
         app.setup_extension(extension)
 
