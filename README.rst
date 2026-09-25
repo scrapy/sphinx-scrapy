@@ -195,9 +195,9 @@ Intersphinx packages
 | `form2request <https://form2request.readthedocs.io/en/stable/>`_
 | `formasaurus <https://formasaurus.readthedocs.io/en/stable/>`_
 | `itemloaders <https://itemloaders.readthedocs.io/en/stable/>`_
-| `jinja <https://jinja.palletsprojects.com/en/latest/>`_
+| `jinja <https://jinja.palletsprojects.com/en/stable/>`_
 | `lxml <https://lxml.de/apidoc/>`_
-| `multidict <https://multidict.aio-libs.org/en/latest/>`_
+| `multidict <https://multidict.aio-libs.org/en/stable/>`_
 | `niquests <https://niquests.readthedocs.io/en/latest/>`_
 | `packaging <https://packaging.pypa.io/en/stable/>`_
 | `parsel <https://parsel.readthedocs.io/en/stable/>`_
