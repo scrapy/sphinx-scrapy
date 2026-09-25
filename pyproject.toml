@@ -11,8 +11,10 @@ dependencies = [
     "packaging",
     "sphinx>=8.0.0",
     "sphinx-copybutton",
-    "sphinx-llm-friendly>=0.3.0",
+    "sphinx-design",
+    "sphinx-llm-friendly>=0.5.1",
     "sphinx-sitemap",
+    "sphinxcontrib-youtube",
     "tomli; python_version < '3.11'",
 ]
 classifiers = [

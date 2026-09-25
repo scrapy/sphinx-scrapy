@@ -175,8 +175,12 @@ The following Sphinx extensions are automatically enabled when you enable
 
 -   `sphinx_copybutton <https://sphinx-copybutton.readthedocs.io/en/latest/>`_
 
+-   `sphinx_design <https://sphinx-design.readthedocs.io/en/latest/>`_
+
 -   `sphinx-llm-friendly <https://github.com/scrapy/sphinx-llm-friendly>`_,
     which documents the ``llm_friendly_*`` settings
+
+-   `sphinxcontrib.youtube <https://github.com/sphinx-contrib/youtube>`_
 
 .. _intersphinx-packages:
 
