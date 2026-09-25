@@ -2,6 +2,17 @@
 Release notes
 =============
 
+0.13.0 (unreleased)
+===================
+
+-   sphinx-llm-friendly 0.5.1 or higher is now required.
+
+-   Enabled `sphinx_design <https://sphinx-design.readthedocs.io/en/latest/>`_
+    and `sphinxcontrib.youtube <https://github.com/sphinx-contrib/youtube>`_,
+    so their directives, e.g. ``.. tab-set::`` or ``.. youtube::``, work
+    without adding them to ``extensions``, and YouTube videos render as links
+    in the Markdown output.
+
 0.12.0 (2026-09-24)
 ===================
 
