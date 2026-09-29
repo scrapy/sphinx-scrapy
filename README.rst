@@ -211,6 +211,7 @@ Intersphinx packages
 | `pytest <https://docs.pytest.org/en/stable/>`_
 | `python-scrapinghub <https://python-scrapinghub.readthedocs.io/en/latest/>`_
 | `python-zyte-api <https://python-zyte-api.readthedocs.io/en/stable/>`_
+| `requests <https://docs.python-requests.org/en/stable/>`_
 | `scrapy-poet <https://scrapy-poet.readthedocs.io/en/stable/>`_
 | `scrapy-spider-metadata <https://scrapy-spider-metadata.readthedocs.io/en/latest/>`_
 | `scrapy-zyte-api <https://scrapy-zyte-api.readthedocs.io/en/latest/>`_
