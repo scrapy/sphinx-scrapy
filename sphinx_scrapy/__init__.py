@@ -49,6 +49,7 @@ INTERSPHINX_MAPPING = {
         None,
     ),
     "python-zyte-api": ("https://python-zyte-api.readthedocs.io/en/stable/", None),
+    "requests": ("https://docs.python-requests.org/en/stable/", None),
     "scrapy": ("https://docs.scrapy.org/en/latest/", None),
     "scrapy-lint": ("https://scrapy-lint.readthedocs.io/en/latest/", None),
     "scrapy-poet": ("https://scrapy-poet.readthedocs.io/en/stable/", None),
