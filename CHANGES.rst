@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.13.0 (unreleased)
+0.13.0 (2026-09-30)
 ===================
 
 -   sphinx-llm-friendly 0.5.1 or higher is now required.
