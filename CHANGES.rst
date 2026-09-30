@@ -13,6 +13,9 @@ Release notes
     without adding them to ``extensions``, and YouTube videos render as links
     in the Markdown output.
 
+-   | Extended easy Intersphinx configuration to
+    | `requests <https://docs.python-requests.org/en/stable/>`_
+
 0.12.0 (2026-09-24)
 ===================
 
