@@ -74,13 +74,15 @@ def update_rtd_config() -> int:
     )
     print("Updated .readthedocs.yml")
 
-    pin = rf"\g<1>{version('sphinx-scrapy')}"
+    pin = rf"\g<1>=={version('sphinx-scrapy')}"
     for path in ("tox.ini", "docs/requirements.in"):
         file = config.root / path
         if not file.is_file():
             continue
         text = file.read_text(encoding="utf-8")
-        new_text = re.sub(r"(sphinx-scrapy(?:\[tox\])?==)\S+", pin, text)
+        new_text = re.sub(
+            r"(sphinx-scrapy(?:\[tox\])?)(?:==\S+|\s*@\s*git\+\S+)", pin, text
+        )
         if new_text != text:
             file.write_text(new_text, encoding="utf-8")
             print(f"Updated {path}")
