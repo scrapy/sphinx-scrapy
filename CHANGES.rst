@@ -2,6 +2,21 @@
 Release notes
 =============
 
+0.14.0 (unreleased)
+===================
+
+-   | Extended easy Intersphinx configuration to
+    | `websockets <https://websockets.readthedocs.io/en/stable/>`_
+
+-   Intersphinx mappings now point to the documentation of the latest release
+    (``/en/stable/``) instead of the development version (``/en/latest/``)
+    for projects that publish it.
+
+-   The ``sphinx-scrapy`` pre-commit hook now also updates Git-based
+    sphinx-scrapy pins, e.g. ``sphinx-scrapy @
+    git+https://github.com/scrapy/sphinx-scrapy.git@0.9.0``, turning them into
+    PyPI pins.
+
 0.13.0 (2026-09-30)
 ===================
 
