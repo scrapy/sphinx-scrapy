@@ -74,6 +74,7 @@ INTERSPHINX_MAPPING = {
     "url-matcher": ("https://url-matcher.readthedocs.io/en/stable/", None),
     "w3lib": ("https://w3lib.readthedocs.io/en/stable/", None),
     "web-poet": ("https://web-poet.readthedocs.io/en/stable/", None),
+    "websockets": ("https://websockets.readthedocs.io/en/stable/", None),
     "zyte": ("https://docs.zyte.com/", None),
     "zyte-common-items": ("https://zyte-common-items.readthedocs.io/en/stable/", None),
     "zyte-parsers": ("https://zyte-parsers.readthedocs.io/en/stable/", None),

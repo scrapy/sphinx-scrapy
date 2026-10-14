@@ -227,6 +227,7 @@ Intersphinx packages
 | `url-matcher <https://url-matcher.readthedocs.io/en/stable/>`_
 | `w3lib <https://w3lib.readthedocs.io/en/stable/>`_
 | `web-poet <https://web-poet.readthedocs.io/en/stable/>`_
+| `websockets <https://websockets.readthedocs.io/en/stable/>`_
 | `zyte <https://docs.zyte.com>`_
 | `zyte-common-items <https://zyte-common-items.readthedocs.io/en/stable/>`_
 | `zyte-parsers <https://zyte-parsers.readthedocs.io/en/stable/>`_
