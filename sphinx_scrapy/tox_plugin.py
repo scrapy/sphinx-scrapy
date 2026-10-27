@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from importlib.metadata import version
 from typing import TYPE_CHECKING
 
 from tox.config.loader.memory import MemoryLoader
@@ -33,7 +34,8 @@ def tox_add_core_config(core_conf: ConfigSet, state: State) -> None:
                     project_config.python_version or LATEST_RTD_PYTHON_VERSION
                 )
             ],
-            deps=["-rdocs/requirements.txt"],
+            deps=[f"sphinx-scrapy=={version('sphinx-scrapy')}"],
+            dependency_groups=["docs"] if project_config.docs_dependency_group else [],
             extras=tuple(project_config.extras),
             commands=[
                 Command(["sphinx-scrapy", "build", *(state.conf.pos_args(None) or ())])

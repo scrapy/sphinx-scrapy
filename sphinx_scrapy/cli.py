@@ -9,11 +9,30 @@ from pathlib import Path
 from packaging.version import InvalidVersion, Version
 from sphinx.cmd.build import main as sphinx_build
 
-from .config import LATEST_RTD_PYTHON_VERSION, load_project_config
+from .config import LATEST_RTD_PYTHON_VERSION, ProjectConfig, load_project_config
+
+
+def _check_docs_requirements(config: ProjectConfig) -> bool:
+    found = [
+        path
+        for path in ("docs/requirements.in", "docs/requirements.txt")
+        if (config.root / path).is_file()
+    ]
+    if found:
+        print(
+            f"Found {' and '.join(found)}. Move documentation dependencies "
+            f"other than sphinx-scrapy to a docs dependency group in "
+            f"pyproject.toml, and remove {' and '.join(found)}.",
+            file=sys.stderr,
+        )
+        return False
+    return True
 
 
 def build_docs(output_dir: Path | None) -> int:
     config = load_project_config()
+    if not _check_docs_requirements(config):
+        return 1
     docs_dir = config.root / "docs"
     if not docs_dir.is_dir():
         print("docs directory not found", file=sys.stderr)
@@ -36,6 +55,8 @@ def build_docs(output_dir: Path | None) -> int:
 
 def update_rtd_config() -> int:
     config = load_project_config()
+    if not _check_docs_requirements(config):
+        return 1
 
     try:
         config_python_version = Version(str(config.python_version))
@@ -74,23 +95,17 @@ def update_rtd_config() -> int:
     )
     print("Updated .readthedocs.yml")
 
-    pin = rf"\g<1>=={version('sphinx-scrapy')}"
-    for path in ("tox.ini", "docs/requirements.in"):
-        file = config.root / path
-        if not file.is_file():
-            continue
-        text = file.read_text(encoding="utf-8")
+    tox_ini = config.root / "tox.ini"
+    if tox_ini.is_file():
+        text = tox_ini.read_text(encoding="utf-8")
         new_text = re.sub(
-            r"(sphinx-scrapy(?:\[tox\])?)(?:==\S+|\s*@\s*git\+\S+)", pin, text
+            r"(sphinx-scrapy(?:\[tox\])?)(?:==\S+|\s*@\s*git\+\S+)",
+            rf"\g<1>=={version('sphinx-scrapy')}",
+            text,
         )
         if new_text != text:
-            file.write_text(new_text, encoding="utf-8")
-            print(f"Updated {path}")
-            if path == "docs/requirements.in":
-                print(
-                    "Run `uv pip compile requirements.in -o requirements.txt` "
-                    "from docs/"
-                )
+            tox_ini.write_text(new_text, encoding="utf-8")
+            print("Updated tox.ini")
     return 0
 
 

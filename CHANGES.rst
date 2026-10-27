@@ -2,6 +2,23 @@
 Release notes
 =============
 
+0.15.0 (unreleased)
+===================
+
+-   The ``docs`` tox environment now installs sphinx-scrapy at the version of
+    the tox plugin, plus the ``docs`` `dependency group
+    <https://packaging.python.org/en/latest/specifications/dependency-groups/>`_
+    of :file:`pyproject.toml`, if defined, instead of
+    :file:`docs/requirements.txt`. Documentation dependencies are thus no
+    longer pinned, and sphinx-scrapy is pinned only in :file:`tox.ini` and
+    :file:`.pre-commit-config.yaml`.
+
+    To update, move documentation dependencies other than sphinx-scrapy to
+    that group, e.g. ``docs = ["sphinx-rtd-theme"]`` under
+    ``[dependency-groups]``, and remove :file:`docs/requirements.in` and
+    :file:`docs/requirements.txt`. ``sphinx-scrapy build`` and the
+    ``sphinx-scrapy`` pre-commit hook fail while either file exists.
+
 0.14.0 (2026-10-14)
 ===================
 

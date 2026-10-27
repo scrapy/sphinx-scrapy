@@ -23,8 +23,8 @@ Features
 
 -   Generates a `Read the Docs <https://readthedocs.org/>`_ configuration.
 
--   Keeps the sphinx-scrapy pins of ``tox.ini`` and ``docs/requirements.in``
-    in sync with the pre-commit ``rev``.
+-   Keeps the sphinx-scrapy pin of ``tox.ini`` in sync with the pre-commit
+    ``rev``.
 
 -   Makes documentation builds fail on Sphinx warnings. While you fix existing
     warnings, you can either `suppress them by type
@@ -82,11 +82,13 @@ Setup
     It must be `supported by Read the Docs
     <https://docs.readthedocs.com/platform/latest/config-file/v2.html#build-tools-python>`_.
 
-#.  Add to ``docs/requirements.txt``:
+#.  Add any other documentation dependencies, e.g. a Sphinx theme, to a
+    ``docs`` dependency group in ``pyproject.toml``:
 
-    .. code-block:: text
+    .. code-block:: toml
 
-        sphinx-scrapy==0.14.0
+        [dependency-groups]
+        docs = ["sphinx-rtd-theme"]
 
 #.  Add to ``docs/conf.py``:
 
