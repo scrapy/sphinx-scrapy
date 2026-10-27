@@ -26,6 +26,7 @@ class ProjectConfig:
     project_id: str | None = None
     github_repo: str | None = None
     fail_on_warning: bool = True
+    docs_dependency_group: bool = False
 
 
 def find_project_root(start: Path | None = None) -> Path:
@@ -81,6 +82,9 @@ def load_project_config(start: Path | None = None) -> ProjectConfig:
     python_version = scrapy_data.get("python-version", LATEST_RTD_PYTHON_VERSION)
     fail_on_warning = bool(scrapy_data.get("fail-on-warning", True))
     extras = get_extras(pyproject_data)
+    dependency_groups = {
+        canonicalize_name(name) for name in pyproject_data.get("dependency-groups", {})
+    }
     raw_project_id = pyproject_data.get("project", {}).get("name")
     project_id = None
     if raw_project_id is not None:
@@ -94,4 +98,5 @@ def load_project_config(start: Path | None = None) -> ProjectConfig:
         project_id=project_id,
         github_repo=_get_github_repo(pyproject_data),
         fail_on_warning=fail_on_warning,
+        docs_dependency_group="docs" in dependency_groups,
     )
