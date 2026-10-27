@@ -76,11 +76,6 @@ replace = "rev: {new_version}"
 
 [[tool.bumpversion.files]]
 filename = "README.rst"
-search = "sphinx-scrapy=={current_version}"
-replace = "sphinx-scrapy=={new_version}"
-
-[[tool.bumpversion.files]]
-filename = "README.rst"
 search = "sphinx-scrapy[tox]=={current_version}"
 replace = "sphinx-scrapy[tox]=={new_version}"
 
