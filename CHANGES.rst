@@ -2,7 +2,7 @@
 Release notes
 =============
 
-0.15.0 (unreleased)
+0.15.0 (2026-10-27)
 ===================
 
 -   The ``docs`` tox environment now installs sphinx-scrapy at the version of

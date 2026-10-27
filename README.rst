@@ -138,7 +138,7 @@ Setup
 
         repos:
         - repo: https://github.com/scrapy/sphinx-scrapy
-            rev: 0.14.0
+            rev: 0.15.0
             hooks:
             - id: sphinx-scrapy
 
@@ -148,7 +148,7 @@ Setup
 
         [tox]
         requires =
-            sphinx-scrapy[tox]==0.14.0
+            sphinx-scrapy[tox]==0.15.0
         envlist = …,docs
 
     .. note:: ``docs`` in ``envlist`` is required.
